@@ -1,0 +1,12 @@
+{
+  "name": "@dyna-form/button",
+  "description": "dynamic button component",
+  "license": "UNLICENSED",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "@dyna-form/form-group": "^1.0.0"
+  }
+}

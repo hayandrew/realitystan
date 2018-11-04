@@ -1,0 +1,27 @@
+{
+  "name": "@boozer/react-stepzilla",
+  "version": "4.8.0",
+  "description": "A react multi-step, wizard component for managing data collection via forms and sub components",
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/newbreedofgeek/react-stepzilla.git"
+  },
+  "keywords": [
+    "react",
+    "multistep",
+    "react",
+    "wizard",
+    "react"
+  ],
+  "author": "@newbreedofgeek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/newbreedofgeek/react-stepzilla/issues"
+  },
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "promise": "^8.0.1"
+  }
+}
