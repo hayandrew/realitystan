@@ -3,19 +3,9 @@ import ReactDOM from "react-dom"
 import "normalize.css"
 import "./index.css"
 import App from "./App"
-import { MuiThemeProvider } from "@material-ui/core/styles"
-import theme from "./theme"
 import * as serviceWorker from "./serviceWorker"
 
-function RenderApp() {
-  return (
-    <MuiThemeProvider theme={theme}>
-      <App />
-    </MuiThemeProvider>
-  )
-}
-
-ReactDOM.render(<RenderApp />, document.getElementById("root"))
+ReactDOM.render(<App />, document.getElementById("root"))
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

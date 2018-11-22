@@ -1,14 +1,16 @@
-import React, { Component, Fragment } from "react"
-import EventForm from "@boozer/event-form"
+import React, { Component } from "react"
 import "./App.css"
-import { data } from "./data"
+import Letter from "@disney/letter"
+import Data from "./data"
 
 class App extends Component {
   render() {
     return (
-      <Fragment>
-        <EventForm type="Edit" title="Event" data={data} />
-      </Fragment>
+      <div className="letters-container">
+        {Data.map(icon => (
+          <Letter key={icon.path} icon={icon} />
+        ))}
+      </div>
     )
   }
 }

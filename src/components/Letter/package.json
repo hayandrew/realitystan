@@ -1,0 +1,13 @@
+{
+  "name": "@disney/letter",
+  "version": "1.0.0",
+  "description": "A multi-step form",
+  "main": "./index.js",
+  "author": "@superandystar",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
