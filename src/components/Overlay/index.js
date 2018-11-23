@@ -1,3 +1,3 @@
-import Letter from "./Letter"
+import Overlay from "./Overlay"
 
-export default Letter
+export default Overlay

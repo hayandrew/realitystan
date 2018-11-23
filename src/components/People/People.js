@@ -1,13 +1,11 @@
 import React from "react"
 
-import Person from "../Person/Person.jsx"
-import SelectBox from "../SelectBox/SelectBox.jsx"
-import Select from "react-select"
+import Person from "@bbstan/person"
+import SelectBox from "@bbstan/selectbox"
 
 class People extends React.Component {
   render() {
     const type = this.props.type
-    const houseguests = this.props.houseguests
     const peopleSubset = this.props.people
 
     return (
