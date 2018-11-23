@@ -1,20 +1,13 @@
 import React from "react"
 import evictionMessages from "./data"
 
-class Overlay extends React.Component {
-  onClickChild = e => {
-    e.stopPropagation()
-  }
+const Overlay = props => {
+  const overlay = props.overlay
 
-  onClickOverlayClose = e => {
-    e.stopPropagation()
-    if (this.props.callback) this.props.callback()
-  }
-
-  renderPerson(person) {
+  function renderPerson(person) {
     return (
-      <div className="houseguest-outer">
-        <div className="houseguest" key={person.firstName}>
+      <div className="houseguest-outer" key={person.firstName}>
+        <div className="houseguest">
           <div className="houseguest-details">
             <div>{person.firstName}</div>
             <div
@@ -29,9 +22,9 @@ class Overlay extends React.Component {
     )
   }
 
-  renderEvictedOverlay() {
-    const evictedPerson = this.props.evictedPerson
-    const votesAgainst = this.props.people.filter(
+  function renderEvictedOverlay() {
+    const evictedPerson = props.evictedPerson
+    const votesAgainst = props.people.filter(
       person => person.voteId === evictedPerson.id
     )
 
@@ -41,34 +34,30 @@ class Overlay extends React.Component {
           <h2>{evictedPerson.firstName} has been evicted.</h2>
           <h3>{evictionMessages[0]}</h3>
 
-          <div className="people">{this.renderPerson(evictedPerson)}</div>
+          <div className="people">{renderPerson(evictedPerson)}</div>
         </div>
 
         <h4>Votes Against:</h4>
         <div className="people overlay-votes-against">
-          {votesAgainst.map((person, key) => this.renderPerson(person))}
+          {votesAgainst.map((person, key) => renderPerson(person))}
         </div>
       </div>
     )
   }
 
-  render() {
-    const overlay = this.props.overlay
-
-    return (
-      <div
-        onClick={this.props.toggleOverlay.bind(this, null)}
-        className={"overlay " + (this.props.overlay ? " overlay--active" : "")}
+  return (
+    <div
+      onClick={props.toggleOverlay.bind(this, null)}
+      className={"overlay " + (props.overlay ? " overlay--active" : "")}
+    >
+      <button
+        onClick={props.toggleOverlay.bind(this, null)}
+        className="overlay--close"
       >
-        <button
-          onClick={this.props.toggleOverlay.bind(this, null)}
-          className="overlay--close"
-        >
-          Close
-        </button>
-        {overlay === "evicted" ? this.renderEvictedOverlay() : ""}
-      </div>
-    )
-  }
+        Close
+      </button>
+      {overlay === "evicted" ? renderEvictedOverlay() : ""}
+    </div>
+  )
 }
 export default Overlay

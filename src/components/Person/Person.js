@@ -1,44 +1,40 @@
 import React from "react"
 import Details from "@bbstan/details"
 
-import AnimateOnChange from "react-animate-on-change"
+const Person = props => {
+  const type = props.type
+  const person = props.person
+  const personName = person.firstName
 
-class Person extends React.Component {
-  renderVotes(nominee) {
-    let voteCount = this.props.houseguests.filter(
+  function renderVotes(nominee) {
+    let voteCount = props.houseguests.filter(
       person => person.voteId === nominee.id
     ).length
 
     return (
       <div className="evictee-votes">
         <span className="evictee-votes--label">Votes</span>
-        <span className="evictee-votes--count">
-          <AnimateOnChange
-            baseClassName="vote"
-            animationClassName="vote-change"
-            animate={true}
-          >
-            {voteCount}
-          </AnimateOnChange>
-        </span>
+        <span className="evictee-votes--count">{voteCount}</span>
       </div>
     )
   }
 
-  getStatusIcons(person) {
-    return Object.keys(person).map(key => {
+  function getStatusIcons(person) {
+    Object.keys(person).map(key => {
       if (key.match(/is_/)) {
         return (
           <div
             key={key}
-            className={"houseguest-stats-icon houseguest-stats-icon--" + key}
+            className={`houseguest-stats-icon houseguest-stats-icon--${key}`}
           />
         )
+      } else {
+        return null
       }
     })
   }
 
-  getPersonClass(person, type) {
+  function getPersonClass(person, type) {
     if (!type) {
       type = "plain"
     }
@@ -48,7 +44,7 @@ class Person extends React.Component {
       }
     }
 
-    let personClass = "houseguest houseguest-" + type
+    let personClass = `houseguest houseguest-${type}`
     let inputActive = !person.voteId && type === "voter"
 
     if ("is_evicted" in person) personClass += " is_evicted"
@@ -58,31 +54,23 @@ class Person extends React.Component {
     return personClass
   }
 
-  render() {
-    const type = this.props.type
-    const person = this.props.person
-    const personName = person.firstName
-
-    return (
-      <div className={this.getPersonClass(person, type)} key={personName}>
-        <div className="houseguest-details">
-          <Details person={person} type={type} />
-          {!(type === "voter") ? this.props.children : ""}
-          <div
-            className="houseguest-image"
-            style={{
-              backgroundImage: "url(images/cast/" + person.image
-            }}
-          >
-            <div className="houseguest-stats">
-              {this.getStatusIcons(person)}
-            </div>
-          </div>
-          {type === "voter" ? this.props.children : ""}
+  return (
+    <div className={getPersonClass(person, type)} key={personName}>
+      <div className="houseguest-details">
+        <Details person={person} type={type} />
+        {!(type === "voter") ? props.children : ""}
+        <div
+          className="houseguest-image"
+          style={{
+            backgroundImage: "url(images/cast/" + person.image
+          }}
+        >
+          <div className="houseguest-stats">{getStatusIcons(person)}</div>
         </div>
-        {type === "nominee" ? this.renderVotes(person) : ""}
+        {type === "voter" ? props.children : ""}
       </div>
-    )
-  }
+      {type === "nominee" ? renderVotes(person) : ""}
+    </div>
+  )
 }
 export default Person

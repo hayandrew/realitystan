@@ -18,10 +18,6 @@ class App extends Component {
     }
   }
 
-  /*
-   * Update People Object
-   *
-   */
   updatePeople = (key, event) => {
     const filterType = event.type
     const statName = "is_" + filterType
@@ -39,12 +35,11 @@ class App extends Component {
         delete prevPerson[statName]
         delete prevPerson[keyType]
 
-        people.filter(person => {
+        people.forEach(person => {
           if (person.voteId === prevPerson.id) {
-            person.vote = undefined
-            person.voteId = undefined
+            delete person.vote
+            delete person.voteId
           }
-          return person
         })
       }
 
@@ -62,11 +57,7 @@ class App extends Component {
     }
   }
 
-  /*
-   * Compare Votes
-   *
-   */
-  compareVotes(nominees, people) {
+  compareVotes(nominees) {
     let voters = this.getVoters()
     let maxCount = voters.length / 2
     let isEvenCount = maxCount % 1 === 0
@@ -86,29 +77,26 @@ class App extends Component {
     return evictedPerson
   }
 
-  /*
-   * Update Vote
-   *
-   */
   updateVote = (key, event) => {
     let people = this.state.houseguests
     let nominees = people.filter(person => "is_nominee" in person)
     let evictedPerson = null
 
     // set vote
-    for (var i = 0, len = people.length; i < len; i++) {
-      if (people[i].id === event.personId) {
-        people[i].vote = parseInt(event.value, 10)
-        people[i].voteId = parseInt(event.id, 10)
+    people.forEach(person => {
+      if (person.id === event.personId) {
+        person.vote = parseInt(event.value, 10)
+        person.voteId = parseInt(event.id, 10)
       }
-    }
+    })
 
     // count vote
-    for (var j = 0, lenj = nominees.length; j < lenj; j++) {
-      let voteCount = people.filter(person => person.voteId === nominees[j].id)
+    nominees.map(nominee => {
+      let voteCount = people.filter(person => person.voteId === nominee.id)
         .length
-      nominees[j].voteCount = voteCount
-    }
+      nominee.voteCount = voteCount
+      return nominee
+    })
 
     // set evicted person
     evictedPerson = this.compareVotes(nominees, people)
@@ -120,33 +108,32 @@ class App extends Component {
     })
   }
 
-  /*
-   * Toggle Overlay
-   *
-   */
   toggleOverlay = key => {
     this.setState({
       overlay: key
     })
   }
 
-  getVoters = () =>
-    this.state.houseguests.filter(
+  getVoters() {
+    return this.state.houseguests.filter(
       person =>
         !("is_nominee" in person) &&
         !("is_hoh" in person) &&
         !("empty" in person)
     )
+  }
 
-  getHoh = () =>
-    this.state.houseguests
+  getHoh() {
+    return this.state.houseguests
       .filter(person => "is_hoh" in person)
       .sort((a, b) => a.hoh_key - b.hoh_key)
+  }
 
-  getNominees = () =>
-    this.state.houseguests
+  getNominees() {
+    return this.state.houseguests
       .filter(person => "is_nominee" in person)
       .sort((a, b) => a.nominee_key - b.nominee_key)
+  }
 
   /*
    * Render App
@@ -171,35 +158,29 @@ class App extends Component {
 
         <div className="board">
           <div className="board-leaderboard">
-            {hohs.length ? (
+            {hohs.length && (
               <div className="hoh">
                 <h3>{this.state.show.leaderTitle}</h3>
                 <People
                   type="hoh"
                   people={hohs}
-                  week={this.state.week}
                   onChange={this.updatePeople}
                   houseguests={this.state.houseguests}
                 />
               </div>
-            ) : (
-              ""
             )}
-            {nominees.length ? (
+            {nominees.length && (
               <div className="nominees">
                 <h3>{this.state.show.nomineesTitle}</h3>
                 <div className="nominees-inner">
                   <People
                     type="nominee"
                     people={nominees}
-                    week={this.state.week}
                     onChange={this.updatePeople}
                     houseguests={this.state.houseguests}
                   />
                 </div>
               </div>
-            ) : (
-              ""
             )}
           </div>
 
@@ -209,7 +190,6 @@ class App extends Component {
               <People
                 type="voter"
                 people={voters}
-                week={this.state.week}
                 onChange={this.updateVote}
                 houseguests={this.state.houseguests}
               />

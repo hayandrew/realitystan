@@ -1,9 +1,10 @@
 import React from "react"
 import Select from "react-select"
+import "./SelectBox.css"
 //https://github.com/JedWatson/react-select
 
-class SelectBox extends React.Component {
-  peopleFilter(houseguest, personId, type) {
+const SelectBox = props => {
+  function peopleFilter(houseguest, personId, type) {
     if (type === "hoh") {
       return (
         (!("notEvictable" in houseguest) &&
@@ -24,58 +25,57 @@ class SelectBox extends React.Component {
     }
   }
 
-  render() {
-    const type = this.props.type
+  const type = props.type
 
-    if (type === "evicted") return
+  if (type === "evicted") return
 
-    const thisPerson = this.props.person
-    const optionKey = this.props.optionKey
-    const nominees = this.props.houseguests.filter(
-      person => "is_nominee" in person
-    )
-    const onChange = this.props.onChange
+  const thisPerson = props.person
+  const optionKey = props.optionKey
+  const nominees = props.houseguests.filter(person => "is_nominee" in person)
+  const onChange = props.onChange
 
-    let defaultValue = ""
-    let options = []
+  let defaultValue = ""
+  let options = []
 
-    if (type === "voter") {
-      defaultValue = thisPerson.vote
+  if (type === "voter") {
+    defaultValue = thisPerson.vote
 
-      nominees.map((evictee, key) => {
-        options.push({
-          value: key,
-          id: evictee.id,
-          label: evictee.firstName,
-          personId: thisPerson.id
+    nominees.map((evictee, key) => {
+      return options.push({
+        value: key,
+        id: evictee.id,
+        label: evictee.firstName,
+        personId: thisPerson.id
+      })
+    })
+  } else {
+    defaultValue = thisPerson.id
+
+    props.houseguests.map(houseguest => {
+      if (
+        peopleFilter(houseguest, thisPerson.id, type) &&
+        !("empty" in houseguest)
+      ) {
+        return options.push({
+          value: houseguest.id,
+          label: houseguest.firstName,
+          type: type
         })
-      })
-    } else {
-      defaultValue = thisPerson.id
-
-      this.props.houseguests.map(houseguest => {
-        if (
-          this.peopleFilter(houseguest, thisPerson.id, type) &&
-          !("empty" in houseguest)
-        ) {
-          options.push({
-            value: houseguest.id,
-            label: houseguest.firstName,
-            type: type
-          })
-        }
-      })
-    }
-
-    return (
-      <Select
-        clearable={false}
-        disabled={this.props.disabled}
-        value={defaultValue}
-        options={options}
-        onChange={onChange.bind(this, optionKey)}
-      />
-    )
+      } else {
+        return null
+      }
+    })
   }
+
+  return (
+    <Select
+      disabled={props.disabled}
+      value={defaultValue}
+      options={options}
+      clearable={false}
+      onChange={onChange.bind(this, optionKey)}
+    />
+  )
 }
+
 export default SelectBox
