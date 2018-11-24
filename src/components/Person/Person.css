@@ -5,6 +5,9 @@
   flex-direction: column;
   justify-content: center;
 }
+.evictee-voter-name {
+  padding-top: 8px;
+}
 
 /*
  *  Status Icons

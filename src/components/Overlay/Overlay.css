@@ -10,7 +10,7 @@
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  background: rgba(255, 255, 255, 0.9);
+  background: #fff;
   z-index: 100;
   -webkit-transition: opacity 300ms linear;
   -moz-transition: opacity 300ms linear;

@@ -23,21 +23,19 @@ const People = props => {
    */
   function renderPerson(person, key) {
     return (
-      <div className="houseguest-outer" key={key}>
-        <Person type={type} voters={voters} person={person}>
-          <SelectBox
-            type={type}
-            person={person}
-            disabled={"is_evicted" in person}
-            onChange={onChange}
-            houseguests={houseguests}
-            nominees={nominees}
-            hoh={hoh}
-            voters={voters}
-            optionKey={key}
-          />
-        </Person>
-      </div>
+      <Person type={type} voters={voters} person={person} key={key}>
+        <SelectBox
+          type={type}
+          person={person}
+          disabled={"is_evicted" in person}
+          onChange={onChange}
+          houseguests={houseguests}
+          nominees={nominees}
+          hoh={hoh}
+          voters={voters}
+          optionKey={key}
+        />
+      </Person>
     )
   }
 

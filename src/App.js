@@ -146,16 +146,16 @@ class App extends Component {
    * @returns {void}
    */
   compareVotes(nominees) {
-    let maxCount = this.state.voters.length / 2
+    // let maxCount = this.state.voters.length / 2
+    let maxCount = 0
+    const isEvenCount = maxCount % 1 === 0
 
-    /* TODO: Set even vote */
-    let isEvenCount = maxCount % 1 === 0
     if (!isEvenCount) {
       maxCount = Math.ceil(maxCount)
     }
 
-    /* Return nominee with maxCount */
-    return nominees.find(nominee => nominee.voteCount >= maxCount)
+    /* Return nominee with more than maxCount */
+    return nominees.find(nominee => nominee.voteCount > maxCount)
   }
 
   /**

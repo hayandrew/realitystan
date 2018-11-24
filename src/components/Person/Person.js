@@ -62,22 +62,27 @@ const Person = props => {
   }
 
   return (
-    <div className={getPersonClass(person, type)} key={firstName}>
-      <div className="houseguest-details">
-        {/* TODO: Add details */}
-        <Details person={person} type={type} />
-        {!(type === "voters") && children}
-        <div
-          className="houseguest-image"
-          style={{
-            backgroundImage: `url(images/cast/${person.image}`
-          }}
-        >
-          <div className="houseguest-stats">{getStatusIcons(person)}</div>
+    <div className="houseguest-outer">
+      <div className={getPersonClass(person, type)} key={firstName}>
+        <div className="houseguest-details">
+          {/* TODO: Add details */}
+          <Details person={person} type={type} />
+          {!(type === "voters") && children}
+          <div
+            className="houseguest-image"
+            style={{
+              backgroundImage: `url(images/cast/${person.image}`
+            }}
+          >
+            <div className="houseguest-stats">{getStatusIcons(person)}</div>
+          </div>
+          {type === "voters" && children}
         </div>
-        {type === "voters" && children}
+        {type === "nominees" && renderVotes(person)}
+        {type === "overlay" && (
+          <div className="evictee-voter-name">{firstName}</div>
+        )}
       </div>
-      {type === "nominees" && renderVotes(person)}
     </div>
   )
 }

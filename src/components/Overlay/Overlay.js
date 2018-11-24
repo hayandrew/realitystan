@@ -1,5 +1,6 @@
 import React from "react"
 import evictionMessages from "./data"
+import Person from "@bbstan/person"
 import "./Overlay.css"
 
 const Overlay = props => {
@@ -13,19 +14,7 @@ const Overlay = props => {
    */
   function renderPerson(person) {
     return (
-      <div className="houseguest-outer" key={person.firstName}>
-        <div className="houseguest">
-          <div className="houseguest-details">
-            <div>{person.firstName}</div>
-            <div
-              className="houseguest-image"
-              style={{
-                backgroundImage: `url(images/cast/${person.image}`
-              }}
-            />
-          </div>
-        </div>
-      </div>
+      <Person person={person} type="overlay" firstName={person.firstName} />
     )
   }
 
