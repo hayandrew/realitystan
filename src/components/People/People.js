@@ -3,6 +3,8 @@ import Person from "@bbstan/person"
 import SelectBox from "@bbstan/selectbox"
 import "./People.css"
 
+const get = require("lodash/get")
+
 const People = props => {
   const {
     type,
@@ -21,6 +23,7 @@ const People = props => {
    * @returns {void}
    */
   function renderPerson(person, key) {
+    const is_evicted = get(person, "is_evicted", false)
     return (
       <Person
         type={type}
@@ -32,7 +35,7 @@ const People = props => {
         <SelectBox
           type={type}
           person={person}
-          disabled={"is_evicted" in person}
+          disabled={is_evicted}
           onChange={onChange}
           nominees={nominees}
           voters={voters}

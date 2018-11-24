@@ -22,6 +22,15 @@ const Overlay = props => {
     )
   }
 
+  function getRandomMessage() {
+    const id = Math.random() * evictionMessages.length
+    const message = evictionMessages[Math.floor(id)].replace(
+      "GUESTNAME",
+      evictedPerson.firstName
+    )
+    return message
+  }
+
   /**
    * Render evicted person overlay content
    * @param {obj} person a person object
@@ -36,7 +45,7 @@ const Overlay = props => {
       <div className="overlay-inner">
         <div className="overlay-header">
           <h2>{evictedPerson.firstName} has been evicted.</h2>
-          <h3>{evictionMessages[0]}</h3>
+          <h3>{getRandomMessage()}</h3>
 
           <div className="people">{renderPerson(evictedPerson)}</div>
         </div>

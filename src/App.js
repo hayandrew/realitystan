@@ -146,16 +146,14 @@ class App extends Component {
    * @returns {void}
    */
   compareVotes(nominees) {
-    // let maxCount = this.state.voters.length / 2
-    let maxCount = 0
-    const isEvenCount = maxCount % 1 === 0
+    const voters = this.state.voters.filter(person => !person.is_evicted)
+    let maxCount = voters.length / 2 + 1
 
-    if (!isEvenCount) {
-      maxCount = Math.ceil(maxCount)
-    }
+    /* Check if maxCount is decimal and round down */
+    maxCount = !(maxCount % 1 === 0) ? Math.floor(maxCount) : maxCount
 
     /* Return nominee with more than maxCount */
-    return nominees.find(nominee => nominee.voteCount > maxCount)
+    return nominees.find(nominee => nominee.voteCount >= maxCount)
   }
 
   /**
@@ -166,22 +164,22 @@ class App extends Component {
    */
   countVotes() {
     let { nominees, voters } = this.state
-    let evictedPerson = null
+    let evictee = null
 
     /* Count vote and add to nominee */
     nominees.forEach(nominee => {
       nominee.voteCount = voters.filter(
-        person => person.voteId === nominee.id
+        person => person.voteId === nominee.id && !person.is_evicted
       ).length
     })
 
     /* Set evicted person */
-    evictedPerson = this.compareVotes(nominees)
+    evictee = this.compareVotes(nominees)
 
     /* Update evicted person and toggle overlay */
     this.setState({
-      evictedPerson: evictedPerson,
-      overlay: evictedPerson
+      evictedPerson: evictee,
+      overlay: evictee
     })
   }
 
@@ -204,16 +202,27 @@ class App extends Component {
     this.countVotes()
   }
 
+  /**
+   * Toggle eviction status
+   * @param {number} key of current voter
+   * @param {obj} event contains event values
+   * @returns {void}
+   */
   toggleEviction = e => {
     const { voters } = this.state
     voters.forEach(voter => {
       if (voter.id === parseInt(e.target.name, 10)) {
         voter.is_evicted = !voter.is_evicted
+        delete voter.vote
+        delete voter.voteId
       }
     })
-    this.setState({
-      voters: voters
-    })
+    this.setState(
+      {
+        voters: voters
+      },
+      () => this.countVotes()
+    )
   }
 
   render() {

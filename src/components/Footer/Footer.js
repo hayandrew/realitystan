@@ -4,7 +4,7 @@ import "./Footer.css"
 const Footer = () => {
   return (
     <footer>
-      <div className="copyright">&copy; Copyright 2017. Andy Hay</div>
+      <div className="copyright">by Andy Hay. 2017</div>
     </footer>
   )
 }

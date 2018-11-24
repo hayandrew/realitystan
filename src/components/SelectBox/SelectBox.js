@@ -23,7 +23,8 @@ const SelectBox = props => {
    */
   function getGroup() {
     if (voters) {
-      return [thisPerson, ...voters]
+      const newGroup = voters.filter(voter => !voter.is_evicted)
+      return [thisPerson, ...newGroup]
     }
   }
 
