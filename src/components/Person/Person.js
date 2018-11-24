@@ -1,12 +1,16 @@
 import React from "react"
+import classnames from "classnames"
 import Details from "@bbstan/details"
 import "./Person.css"
 
 const Person = props => {
-  const type = props.type
-  const person = props.person
-  const personName = person.firstName
+  const { children, firstName, person, type } = props
 
+  /**
+   * Filter people
+   * @param {obj} person a person object
+   * @returns {void}
+   */
   function renderVotes(nominee) {
     let voteCount = props.voters.filter(person => person.voteId === nominee.id)
       .length
@@ -19,6 +23,12 @@ const Person = props => {
     )
   }
 
+  /**
+   * Add status icons
+   * TODO: fix this
+   * @param {obj} person a person object
+   * @returns {void}
+   */
   function getStatusIcons(person) {
     Object.keys(person).forEach(key => {
       if (key.match(/is_/)) {
@@ -32,42 +42,42 @@ const Person = props => {
     })
   }
 
-  function getPersonClass(person, type) {
-    if (!type) {
-      type = "plain"
-    }
+  /**
+   * Get the classnames for the person
+   * @param {obj} person a person object
+   * @returns {void}
+   */
+  function getPersonClass(person) {
     if (!person) {
       person = {
         voteId: null
       }
     }
-
-    let personClass = `houseguest houseguest-${type}`
-    let inputActive = !person.voteId && type === "voters"
-
-    if ("is_evicted" in person) personClass += " is_evicted"
-    if (inputActive) personClass += " houseguest--input-active"
-    if ("is_nominee_evicted" in person) personClass += " is_nominee_evicted"
-
-    return personClass
+    return classnames(
+      `houseguest houseguest-${type}`,
+      "is_evicted" in person && "is_evicted",
+      !person.voteId && type === "voters" && "houseguest--input-active",
+      "is_nominee_evicted" in person && "is_nominee_evicted"
+    )
   }
 
   return (
-    <div className={getPersonClass(person, type)} key={personName}>
+    <div className={getPersonClass(person, type)} key={firstName}>
       <div className="houseguest-details">
+        {/* TODO: Add details */}
         <Details person={person} type={type} />
-        {!(type === "voters") ? props.children : ""}
+        {!(type === "voters") && children}
         <div
           className="houseguest-image"
           style={{
-            backgroundImage: "url(images/cast/" + person.image
+            backgroundImage: `url(images/cast/${person.image}`
           }}
         >
           <div className="houseguest-stats">{getStatusIcons(person)}</div>
         </div>
-        {type === "voters" ? props.children : ""}
+        {type === "voters" && children}
       </div>
-      {type === "nominees" ? renderVotes(person) : ""}
+      {type === "nominees" && renderVotes(person)}
     </div>
   )
 }

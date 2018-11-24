@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bbstan/details": "^1.0.0",
+    "@bbstan/footer": "^1.0.0",
+    "@bbstan/header": "^1.0.0",
+    "@bbstan/overlay": "^1.0.0",
+    "@bbstan/people": "^1.0.0",
+    "@bbstan/person": "^1.0.0",
+    "@bbstan/selectbox": "^1.0.0",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
     "babel-core": "6.26.0",

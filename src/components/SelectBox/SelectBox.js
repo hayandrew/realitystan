@@ -3,25 +3,36 @@ import Select from "react-select"
 import "./SelectBox.css"
 
 const SelectBox = props => {
-  const type = props.type
-  if (type === "evicted") {
-    return false
-  }
-
   const {
     person: thisPerson,
+    type,
     optionKey,
     nominees,
     onChange,
     houseguests
   } = props
 
+  /* If person is evicted, don't render a select */
+  if (type === "evicted") {
+    return false
+  }
+
+  /**
+   * Filter people
+   * TODO: add filter
+   * @param {obj} person a person object
+   * @returns {void}
+   */
   function filterPerson(person) {
     if (type === "hoh") {
     } else if (type === "nominees") {
     }
   }
 
+  /**
+   * Gets the dropdown options
+   * @returns {obj} an object of options
+   */
   function getOptions() {
     let options = []
     if (type === "voters") {
@@ -36,20 +47,20 @@ const SelectBox = props => {
     } else {
       houseguests.forEach(houseguest => {
         filterPerson(houseguest)
-        if (!("empty" in houseguest)) {
-          options.push({
-            value: houseguest.id,
-            label: houseguest.firstName,
-            type: type
-          })
-        } else {
-          return null
-        }
+        options.push({
+          value: houseguest.id,
+          label: houseguest.firstName,
+          type: type
+        })
       })
     }
     return options
   }
 
+  /**
+   * Gets the dropdown default value
+   * @returns {number} the id of the default value
+   */
   function getDefaultValue() {
     let defaultValue = ""
     if (type === "voters") {

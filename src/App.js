@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react"
 import PropTypes from "prop-types"
 
-import Header from "@bbstan/header"
-import Footer from "@bbstan/footer"
 import Overlay from "@bbstan/overlay"
+import Header from "@bbstan/header"
 import People from "@bbstan/people"
+import Footer from "@bbstan/footer"
 
 import data from "./data"
 
@@ -14,21 +14,26 @@ class App extends Component {
   constructor(props) {
     super(props)
 
+    /* Set non-state variables */
     this.people = data.people
     this.show = data.show
     this.hohData = data.hoh
     this.nomineeData = data.nominees
 
+    /* Set initial state */
     this.state = {
       nominees: [],
       hoh: [],
       voters: [],
       overlay: false
     }
+
+    /* Bind functions to this */
     this.documentKeyDown = this.documentKeyDown.bind(this)
   }
 
   componentDidMount() {
+    /* Filter objects */
     const hoh = this.people.filter(person => this.hohData.includes(person.id))
     const nominees = this.people.filter(person =>
       this.nomineeData.includes(person.id)
@@ -38,15 +43,19 @@ class App extends Component {
         !this.nomineeData.includes(person.id) &&
         !this.hohData.includes(person.id)
     )
+
     this.setState({
       nominees: nominees,
       hoh: hoh,
       voters: voters
     })
+
+    /* Add event listeners */
     document.addEventListener("keydown", this.documentKeyDown, false)
   }
 
   componentWillUnmount() {
+    /* Remove event listeners */
     document.removeEventListener("keydown", this.documentKeyDown)
   }
 
@@ -94,9 +103,13 @@ class App extends Component {
     /* Add new person to group */
     group[key] = this.people.find(obj => obj.id === id)
 
-    this.setState({
-      [type]: group
-    })
+    /* Set the state and recount the votes */
+    this.setState(
+      {
+        [type]: group
+      },
+      () => this.countVotes()
+    )
   }
 
   /**
@@ -146,22 +159,14 @@ class App extends Component {
   }
 
   /**
-   * Update vote count
+   * Count nominee votes
    * @param {number} key of current voter
    * @param {obj} event contains event values
    * @returns {void}
    */
-  updateVote = (key, event) => {
+  countVotes() {
     let { nominees, voters } = this.state
     let evictedPerson = null
-
-    /* Add vote to current voter */
-    voters.forEach(person => {
-      if (person.id === event.personId) {
-        person.vote = event.value
-        person.voteId = event.id
-      }
-    })
 
     /* Count vote and add to nominee */
     nominees.forEach(nominee => {
@@ -178,6 +183,25 @@ class App extends Component {
       evictedPerson: evictedPerson,
       overlay: evictedPerson
     })
+  }
+
+  /**
+   * Update votes
+   * @param {number} key of current voter
+   * @param {obj} event contains event values
+   * @returns {void}
+   */
+  updateVote = (key, event) => {
+    let { voters } = this.state
+
+    /* Add vote to current voter */
+    voters.forEach(person => {
+      if (person.id === event.personId) {
+        person.vote = event.value
+        person.voteId = event.id
+      }
+    })
+    this.countVotes()
   }
 
   render() {

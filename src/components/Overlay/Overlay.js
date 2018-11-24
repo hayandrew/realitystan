@@ -5,6 +5,12 @@ import "./Overlay.css"
 const Overlay = props => {
   const { overlay, toggleOverlay, evictedPerson, people } = props
 
+  /**
+   * Render a person container with select box
+   * TODO: refactor to person component
+   * @param {obj} person a person object
+   * @returns {void}
+   */
   function renderPerson(person) {
     return (
       <div className="houseguest-outer" key={person.firstName}>
@@ -23,6 +29,11 @@ const Overlay = props => {
     )
   }
 
+  /**
+   * Render evicted person overlay content
+   * @param {obj} person a person object
+   * @returns {void}
+   */
   function renderEvictedOverlay() {
     const votesAgainst = people.filter(
       person => person.voteId === evictedPerson.id

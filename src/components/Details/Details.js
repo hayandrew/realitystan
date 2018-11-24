@@ -1,44 +1,63 @@
-import React from "react"
+import React, { Fragment } from "react"
 import ReactTooltip from "react-tooltip"
 
-class Details extends React.Component {
-  renderInfo(person) {
+const Details = props => {
+  const { type } = props
+  const {
+    name,
+    firstName,
+    lastName,
+    age,
+    dob,
+    hometown,
+    residence,
+    occupation,
+    stats
+  } = props.person
+
+  /**
+   * Renders info for tooltip
+   * @returns {string} HTML markup for tooltip
+   */
+  function renderInfo() {
     return (
       <div className="float-left">
         <div className="info-name">
           <label>Name: </label>
-          {person.firstName} {person.lastName}
+          {firstName} {lastName}
         </div>
         <div className="info-age">
           <label>Age: </label>
-          {person.age}
+          {age}
         </div>
-        {person.dob ? (
+        {dob && (
           <div className="info-dob">
             <label>Birthday: </label>
-            {person.dob}
+            {dob}
           </div>
-        ) : (
-          ""
         )}
         <div className="info-hometown">
           <label>Hometown: </label>
-          {person.hometown}
+          {hometown}
         </div>
         <div className="info-residence">
           <label>Residence: </label>
-          {person.residence}
+          {residence}
         </div>
         <div className="info-occupation">
           <label>Occupation: </label>
-          {person.occupation}
+          {occupation}
         </div>
       </div>
     )
   }
 
-  renderStats(person) {
-    if (!person.stats) return
+  /**
+   * Renders stats for tooltip
+   * @returns {string} HTML markup for tooltip
+   */
+  function renderStats() {
+    if (!stats) return
 
     return (
       <div className="float-left">
@@ -53,32 +72,28 @@ class Details extends React.Component {
     )
   }
 
-  renderName(type, person) {
+  /**
+   * Renders name for tooltip
+   * @returns {string} HTML markup for tooltip
+   */
+  function renderName() {
     if (type === "voters") {
       return (
-        <button
-          className="detail-hover"
-          data-tip
-          data-for={person.name + "details"}
-        >
-          {person.firstName}
+        <button className="detail-hover" data-tip data-for={`${name}details`}>
+          {firstName}
         </button>
       )
     }
   }
 
-  render() {
-    const person = this.props.person
-
-    return (
-      <div>
-        {this.renderName(this.props.type, person)}
-        <ReactTooltip id={person.firstName} aria-haspopup="true">
-          {this.renderInfo(person)}
-          {this.renderStats(person)}
-        </ReactTooltip>
-      </div>
-    )
-  }
+  return (
+    <Fragment>
+      {renderName()}
+      <ReactTooltip id={firstName} aria-haspopup="true">
+        {renderInfo()}
+        {renderStats()}
+      </ReactTooltip>
+    </Fragment>
+  )
 }
 export default Details
