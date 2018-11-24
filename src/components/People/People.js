@@ -13,13 +13,16 @@ const People = props => {
 
         return (
           <div className="houseguest-outer" key={key}>
-            <Person type={type} person={person} houseguests={props.houseguests}>
+            <Person type={type} voters={props.voters} person={person}>
               <SelectBox
                 type={type}
                 person={person}
                 disabled={disabled}
                 onChange={props.onChange}
                 houseguests={props.houseguests}
+                nominees={props.nominees}
+                hoh={props.hoh}
+                voters={props.voters}
                 optionKey={key}
               />
             </Person>

@@ -1,4 +1,15 @@
 const data = {
+  nominees: [2, 3],
+  hoh: [1],
+  show: {
+    id: "1",
+    name: "Big Brother 19 (US)",
+    short_id: "us-bb19",
+    nomineesTitle: "Nominees",
+    peopleTitle: "Voters",
+    leaderTitle: "Head of Household",
+    finalists_title: "Finalists"
+  },
   people: [
     {
       id: 1,
@@ -218,18 +229,7 @@ const data = {
       description: "description",
       image: "paul.jpg"
     }
-  ],
-  show: {
-    id: "1",
-    name: "Big Brother 19 (US)",
-    short_id: "us-bb19",
-    created: "2017-06-28 00:00:00",
-    modified: "2017-06-28 04:00:00",
-    nomineesTitle: "Nominees",
-    peopleTitle: "Voters",
-    leaderTitle: "Head of Household",
-    finalists_title: "Finalists"
-  }
+  ]
 }
 
 export default data

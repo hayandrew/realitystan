@@ -3,19 +3,18 @@ import React, { Component } from "react"
 import Header from "@bbstan/header"
 import Overlay from "@bbstan/overlay"
 import People from "@bbstan/people"
-
-import data from "./data"
-
 import "./App.css"
+import data from "./data"
 
 class App extends Component {
   constructor(props) {
     super(props)
 
     this.people = data.people
-    this.show = data.show
 
     this.state = {
+      people: data.people,
+      show: data.show,
       nominees: [],
       hoh: [],
       voters: []
@@ -23,60 +22,76 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const hoh = this.people.filter(person => data.hoh.includes(person.id))
-    const nominees = this.people.filter(person =>
-      data.nominees.includes(person.id)
-    )
-    const voters = this.people.filter(
+    this.setState({
+      nominees: this.getNominees(),
+      hoh: this.getHoh(),
+      voters: this.getVoters()
+    })
+  }
+
+  getVoters() {
+    return this.state.people.filter(
       person =>
-        !data.nominees.includes(person.id) && !data.hoh.includes(person.id)
+        !("is_nominee" in person) &&
+        !("is_hoh" in person) &&
+        !("empty" in person)
     )
-    this.setState({
-      nominees: nominees,
-      hoh: hoh,
-      voters: voters
-    })
   }
 
-  updateGroup = (key, e) => {
-    const type = e.type
-    const id = e.value
-    const group = this.state[type]
-    const prev = group[key]
-
-    // Check that person is not a voter
-    if (!this.state.voters.find(person => person.id === id)) {
-      return false
-    }
-
-    this.updateVoters(id, prev)
-    group[key] = this.people.find(obj => obj.id === id)
-
-    this.setState({
-      [type]: group
-    })
+  getHoh() {
+    return this.state.people
+      .filter(person => "is_hoh" in person)
+      .sort((a, b) => a.hoh_key - b.hoh_key)
   }
 
-  updateVoters(id, prevPerson) {
-    const voters = this.state.voters
-    voters.push(prevPerson)
-    voters.splice(voters.findIndex(person => person.id === id), 1)
-    voters.sort((a, b) => a.id - b.id)
+  getNominees() {
+    return this.state.people
+      .filter(person => "is_nominee" in person)
+      .sort((a, b) => a.nominee_key - b.nominee_key)
+  }
 
-    voters.forEach(person => {
-      if (person.voteId === prevPerson.id) {
-        delete person.vote
-        delete person.voteId
+  updatePeople = (key, event) => {
+    const filterType = event.type
+    const statName = "is_" + filterType
+    const keyType = filterType + "_key"
+    const people = this.state.people
+    const subset = people.filter(person => statName in person)
+    const val = event.value
+    const match = subset.some(person => person.id === event.value)
+    const prevPerson = subset.filter(person => person[keyType] === key)[0]
+
+    if (!match) {
+      const replacementPerson = people.filter(item => item.id === val)[0]
+
+      if (prevPerson) {
+        delete prevPerson[statName]
+        delete prevPerson[keyType]
+
+        people.forEach(person => {
+          if (person.voteId === prevPerson.id) {
+            delete person.vote
+            delete person.voteId
+          }
+        })
       }
-    })
 
-    this.setState({
-      voters: voters
-    })
+      if (replacementPerson) {
+        delete replacementPerson.vote
+        delete replacementPerson.voteId
+
+        replacementPerson[statName] = true
+        replacementPerson[keyType] = key
+      }
+
+      this.setState({
+        houseguests: people
+      })
+    }
   }
 
   compareVotes(nominees) {
-    let maxCount = this.state.voters.length / 2
+    let voters = this.getVoters()
+    let maxCount = voters.length / 2
     let isEvenCount = maxCount % 1 === 0
     let evictedPerson = null
 
@@ -95,8 +110,8 @@ class App extends Component {
   }
 
   updateVote = (key, event) => {
-    let people = this.state.voters
-    let { nominees } = this.state
+    let people = this.state.people
+    let nominees = people.filter(person => "is_nominee" in person)
     let evictedPerson = null
 
     // set vote
@@ -135,7 +150,11 @@ class App extends Component {
    *
    */
   render() {
-    const { hoh, nominees, voters } = this.state
+    let hohs = this.getHoh()
+    let nominees = this.getNominees()
+    let voters = this.getVoters()
+
+    console.log(this.state)
 
     return (
       <div className="main-container">
@@ -143,37 +162,34 @@ class App extends Component {
           evictedPerson={this.state.evictedPerson}
           overlay={this.state.overlay}
           toggleOverlay={this.toggleOverlay}
-          people={this.people}
-          show={this.show}
+          people={this.state.people}
+          show={this.state.show}
         />
 
         <Header />
 
         <div className="board">
           <div className="board-leaderboard">
-            {hoh.length && (
+            {hohs.length && (
               <div className="hoh">
-                <h3>{this.show.leaderTitle}</h3>
+                <h3>{this.state.show.leaderTitle}</h3>
                 <People
                   type="hoh"
-                  people={hoh}
-                  nominees={nominees}
-                  onChange={this.updateGroup}
-                  houseguests={this.people}
+                  people={hohs}
+                  onChange={this.updatePeople}
+                  houseguests={this.state.people}
                 />
               </div>
             )}
             {nominees.length && (
               <div className="nominees">
-                <h3>{this.show.nomineesTitle}</h3>
+                <h3>{this.state.show.nomineesTitle}</h3>
                 <div className="nominees-inner">
                   <People
-                    type="nominees"
+                    type="nominee"
                     people={nominees}
-                    hoh={hoh}
-                    onChange={this.updateGroup}
-                    houseguests={this.people}
-                    voters={this.state.voters}
+                    onChange={this.updatePeople}
+                    houseguests={this.state.people}
                   />
                 </div>
               </div>
@@ -181,14 +197,13 @@ class App extends Component {
           </div>
 
           <div className="board-people">
-            <h3>{this.show.peopleTitle}</h3>
+            <h3>{this.state.show.peopleTitle}</h3>
             <div className="voters">
               <People
                 type="voter"
                 people={voters}
                 onChange={this.updateVote}
-                houseguests={this.people}
-                nominees={this.state.nominees}
+                houseguests={this.state.people}
               />
             </div>
           </div>

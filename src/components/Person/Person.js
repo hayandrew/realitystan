@@ -7,9 +7,8 @@ const Person = props => {
   const personName = person.firstName
 
   function renderVotes(nominee) {
-    let voteCount = props.houseguests.filter(
-      person => person.voteId === nominee.id
-    ).length
+    let voteCount = props.voters.filter(person => person.voteId === nominee.id)
+      .length
 
     return (
       <div className="evictee-votes">
@@ -20,7 +19,7 @@ const Person = props => {
   }
 
   function getStatusIcons(person) {
-    Object.keys(person).map(key => {
+    Object.keys(person).forEach(key => {
       if (key.match(/is_/)) {
         return (
           <div
@@ -28,8 +27,6 @@ const Person = props => {
             className={`houseguest-stats-icon houseguest-stats-icon--${key}`}
           />
         )
-      } else {
-        return null
       }
     })
   }
@@ -69,7 +66,7 @@ const Person = props => {
         </div>
         {type === "voter" ? props.children : ""}
       </div>
-      {type === "nominee" ? renderVotes(person) : ""}
+      {type === "nominees" ? renderVotes(person) : ""}
     </div>
   )
 }

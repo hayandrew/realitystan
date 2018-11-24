@@ -4,74 +4,68 @@ import "./SelectBox.css"
 //https://github.com/JedWatson/react-select
 
 const SelectBox = props => {
-  function peopleFilter(houseguest, personId, type) {
+  const type = props.type
+  if (type === "evicted") {
+    return false
+  }
+
+  const {
+    person: thisPerson,
+    optionKey,
+    nominees,
+    onChange,
+    houseguests
+  } = props
+
+  function filterPerson(person) {
     if (type === "hoh") {
-      return (
-        (!("notEvictable" in houseguest) &&
-          !("is_evicted" in houseguest) &&
-          !("is_nominee" in houseguest)) ||
-        ("is_" in houseguest && houseguest.id === personId)
-      )
-    }
-    if (type === "nominee") {
-      return (
-        (!("notEvictable" in houseguest) &&
-          !("is_safe" in houseguest) &&
-          !("is_evicted" in houseguest) &&
-          !("is_hoh" in houseguest) &&
-          !("is_nominee" in houseguest)) ||
-        ("is_nominee" in houseguest && houseguest.id === personId)
-      )
+    } else if (type === "nominees") {
     }
   }
 
-  const type = props.type
-
-  if (type === "evicted") return
-
-  const thisPerson = props.person
-  const optionKey = props.optionKey
-  const nominees = props.houseguests.filter(person => "is_nominee" in person)
-  const onChange = props.onChange
-
-  let defaultValue = ""
-  let options = []
-
-  if (type === "voter") {
-    defaultValue = thisPerson.vote
-
-    nominees.map((evictee, key) => {
-      return options.push({
-        value: key,
-        id: evictee.id,
-        label: evictee.firstName,
-        personId: thisPerson.id
-      })
-    })
-  } else {
-    defaultValue = thisPerson.id
-
-    props.houseguests.map(houseguest => {
-      if (
-        peopleFilter(houseguest, thisPerson.id, type) &&
-        !("empty" in houseguest)
-      ) {
-        return options.push({
-          value: houseguest.id,
-          label: houseguest.firstName,
-          type: type
+  function getOptions() {
+    let options = []
+    if (type === "voter") {
+      nominees.forEach((person, key) => {
+        options.push({
+          value: key,
+          id: person.id,
+          label: person.firstName,
+          personId: thisPerson.id
         })
-      } else {
-        return null
-      }
-    })
+      })
+    } else {
+      houseguests.forEach(houseguest => {
+        filterPerson(houseguest)
+        if (!("empty" in houseguest)) {
+          options.push({
+            value: houseguest.id,
+            label: houseguest.firstName,
+            type: type
+          })
+        } else {
+          return null
+        }
+      })
+    }
+    return options
+  }
+
+  function getDefaultValue() {
+    let defaultValue = ""
+    if (type === "voter") {
+      defaultValue = thisPerson.vote
+    } else {
+      defaultValue = thisPerson.id
+    }
+    return defaultValue
   }
 
   return (
     <Select
       disabled={props.disabled}
-      value={defaultValue}
-      options={options}
+      value={getDefaultValue()}
+      options={getOptions()}
       clearable={false}
       onChange={onChange.bind(this, optionKey)}
     />
