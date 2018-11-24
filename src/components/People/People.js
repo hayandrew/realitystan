@@ -4,7 +4,15 @@ import SelectBox from "@bbstan/selectbox"
 import "./People.css"
 
 const People = props => {
-  const { type, people, title, voters, onChange, nominees } = props
+  const {
+    type,
+    people,
+    title,
+    voters,
+    onChange,
+    nominees,
+    toggleEviction
+  } = props
 
   /**
    * Render a person container with select box
@@ -14,7 +22,13 @@ const People = props => {
    */
   function renderPerson(person, key) {
     return (
-      <Person type={type} voters={voters} person={person} key={key}>
+      <Person
+        type={type}
+        voters={voters}
+        person={person}
+        key={key}
+        toggleEviction={toggleEviction}
+      >
         <SelectBox
           type={type}
           person={person}

@@ -3,8 +3,10 @@ import classnames from "classnames"
 import Details from "@bbstan/details"
 import "./Person.css"
 
+const get = require("lodash/get")
+
 const Person = props => {
-  const { children, firstName, person, type } = props
+  const { children, firstName, person, type, toggleEviction } = props
 
   /**
    * Filter people
@@ -55,9 +57,22 @@ const Person = props => {
     }
     return classnames(
       `houseguest houseguest-${type}`,
-      "is_evicted" in person && "is_evicted",
+      person.is_evicted && "is_evicted",
       !person.voteId && type === "voters" && "houseguest--input-active",
       "is_nominee_evicted" in person && "is_nominee_evicted"
+    )
+  }
+
+  function renderEvictionToggle() {
+    const is_evicted = get(person, "is_evicted", false)
+    return (
+      <input
+        type="checkbox"
+        name={person.id}
+        checked={is_evicted}
+        value={is_evicted}
+        onChange={toggleEviction}
+      />
     )
   }
 
@@ -78,6 +93,7 @@ const Person = props => {
           </div>
           {type === "voters" && children}
         </div>
+        {type === "voters" && renderEvictionToggle()}
         {type === "nominees" && renderVotes(person)}
         {type === "overlay" && (
           <div className="evictee-voter-name">{firstName}</div>

@@ -13,7 +13,12 @@ const Overlay = props => {
    */
   function renderPerson(person) {
     return (
-      <Person person={person} type="overlay" firstName={person.firstName} />
+      <Person
+        person={person}
+        type="overlay"
+        firstName={person.firstName}
+        key={person.firstName}
+      />
     )
   }
 

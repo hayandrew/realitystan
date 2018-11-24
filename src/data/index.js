@@ -59,7 +59,8 @@ const data = {
       dob: "1279-12-01 00:00:00",
       description: "description",
       image: "finn.png",
-      is_safe: true
+      is_safe: true,
+      is_evicted: true
     },
     {
       id: 5,

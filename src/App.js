@@ -204,6 +204,18 @@ class App extends Component {
     this.countVotes()
   }
 
+  toggleEviction = e => {
+    const { voters } = this.state
+    voters.forEach(voter => {
+      if (voter.id === parseInt(e.target.name, 10)) {
+        voter.is_evicted = !voter.is_evicted
+      }
+    })
+    this.setState({
+      voters: voters
+    })
+  }
+
   render() {
     const { hoh, nominees, voters } = this.state
 
@@ -250,6 +262,7 @@ class App extends Component {
                 people={voters}
                 onChange={this.updateVote}
                 nominees={this.state.nominees}
+                toggleEviction={this.toggleEviction}
               />
             )}
           </div>
