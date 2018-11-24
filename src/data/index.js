@@ -37,7 +37,7 @@ const data = {
     },
     {
       id: 3,
-      firstName: "Chewbacca",
+      firstName: "Chewie",
       lastName: "",
       age: 35,
       hometown: "Lynchburg, VA",

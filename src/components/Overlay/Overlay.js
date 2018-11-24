@@ -8,7 +8,6 @@ const Overlay = props => {
 
   /**
    * Render a person container with select box
-   * TODO: refactor to person component
    * @param {obj} person a person object
    * @returns {void}
    */

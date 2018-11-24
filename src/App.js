@@ -227,7 +227,7 @@ class App extends Component {
                 people={hoh}
                 nominees={nominees}
                 onChange={this.updateGroup}
-                houseguests={this.people}
+                voters={this.state.voters}
               />
             )}
             {nominees.length && (
@@ -237,7 +237,6 @@ class App extends Component {
                 people={nominees}
                 hoh={hoh}
                 onChange={this.updateGroup}
-                houseguests={this.people}
                 voters={this.state.voters}
               />
             )}
@@ -250,7 +249,6 @@ class App extends Component {
                 type="voters"
                 people={voters}
                 onChange={this.updateVote}
-                houseguests={this.people}
                 nominees={this.state.nominees}
               />
             )}

@@ -9,7 +9,7 @@ const SelectBox = props => {
     optionKey,
     nominees,
     onChange,
-    houseguests
+    voters
   } = props
 
   /* If person is evicted, don't render a select */
@@ -18,14 +18,12 @@ const SelectBox = props => {
   }
 
   /**
-   * Filter people
-   * TODO: add filter
-   * @param {obj} person a person object
+   * Get group of houseguests for options
    * @returns {void}
    */
-  function filterPerson(person) {
-    if (type === "hoh") {
-    } else if (type === "nominees") {
+  function getGroup() {
+    if (voters) {
+      return [thisPerson, ...voters]
     }
   }
 
@@ -45,14 +43,16 @@ const SelectBox = props => {
         })
       })
     } else {
-      houseguests.forEach(houseguest => {
-        filterPerson(houseguest)
-        options.push({
-          value: houseguest.id,
-          label: houseguest.firstName,
-          type: type
+      const group = getGroup()
+      if (group.length) {
+        group.forEach(person => {
+          options.push({
+            value: person.id,
+            label: person.firstName,
+            type: type
+          })
         })
-      })
+      }
     }
     return options
   }
@@ -62,13 +62,7 @@ const SelectBox = props => {
    * @returns {number} the id of the default value
    */
   function getDefaultValue() {
-    let defaultValue = ""
-    if (type === "voters") {
-      defaultValue = thisPerson.vote
-    } else {
-      defaultValue = thisPerson.id
-    }
-    return defaultValue
+    return type === "voters" ? thisPerson.vote : thisPerson.id
   }
 
   return (
