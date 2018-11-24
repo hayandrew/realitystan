@@ -54,7 +54,7 @@ class Details extends React.Component {
   }
 
   renderName(type, person) {
-    if (type === "voter") {
+    if (type === "voters") {
       return (
         <button
           className="detail-hover"

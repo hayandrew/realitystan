@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react"
 import PropTypes from "prop-types"
 
 import Header from "@bbstan/header"
+import Footer from "@bbstan/footer"
 import Overlay from "@bbstan/overlay"
 import People from "@bbstan/people"
 
@@ -24,6 +25,7 @@ class App extends Component {
       voters: [],
       overlay: false
     }
+    this.documentKeyDown = this.documentKeyDown.bind(this)
   }
 
   componentDidMount() {
@@ -40,6 +42,32 @@ class App extends Component {
       nominees: nominees,
       hoh: hoh,
       voters: voters
+    })
+    document.addEventListener("keydown", this.documentKeyDown, false)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.documentKeyDown)
+  }
+
+  /**
+   * Close overlay if ESC is pressed
+   * @param {obj} e a keydown event object
+   * @returns {void}
+   */
+  documentKeyDown(e) {
+    if (this.state.overlay && e.keyCode === 27) {
+      this.toggleOverlay()
+    }
+  }
+
+  /**
+   * Toggle the overlay state
+   * @returns {void}
+   */
+  toggleOverlay = () => {
+    this.setState({
+      overlay: !this.state.overlay
     })
   }
 
@@ -152,20 +180,6 @@ class App extends Component {
     })
   }
 
-  /**
-   * Toggle the overlay state
-   * @returns {void}
-   */
-  toggleOverlay = () => {
-    this.setState({
-      overlay: !this.state.overlay
-    })
-  }
-
-  /*
-   * Render App
-   *
-   */
   render() {
     const { hoh, nominees, voters } = this.state
 
@@ -180,62 +194,45 @@ class App extends Component {
         />
 
         <Header />
-
         <div className="board">
           <div className="board-leaderboard">
             {hoh.length && (
-              <div className="hoh">
-                <h3>{this.show.leaderTitle}</h3>
-                <div className="hoh-inner">
-                  <People
-                    title={this.show.leaderTitle}
-                    type="hoh"
-                    people={hoh}
-                    nominees={nominees}
-                    onChange={this.updateGroup}
-                    houseguests={this.people}
-                  />
-                </div>
-              </div>
+              <People
+                title={this.show.leaderTitle}
+                type="hoh"
+                people={hoh}
+                nominees={nominees}
+                onChange={this.updateGroup}
+                houseguests={this.people}
+              />
             )}
             {nominees.length && (
-              <div className="nominees">
-                <h3>{this.show.nomineesTitle}</h3>
-                <div className="nominees-inner">
-                  <People
-                    title={this.show.nomineesTitle}
-                    type="nominees"
-                    people={nominees}
-                    hoh={hoh}
-                    onChange={this.updateGroup}
-                    houseguests={this.people}
-                    voters={this.state.voters}
-                  />
-                </div>
-              </div>
+              <People
+                title={this.show.nomineesTitle}
+                type="nominees"
+                people={nominees}
+                hoh={hoh}
+                onChange={this.updateGroup}
+                houseguests={this.people}
+                voters={this.state.voters}
+              />
             )}
           </div>
 
           <div className="board-people">
-            <div className="voters">
-              <h3>{this.show.peopleTitle}</h3>
-              <div className="voters-inner">
-                <People
-                  title={this.show.peopleTitle}
-                  type="voter"
-                  people={voters}
-                  onChange={this.updateVote}
-                  houseguests={this.people}
-                  nominees={this.state.nominees}
-                />
-              </div>
-            </div>
+            {voters.length && (
+              <People
+                title={this.show.peopleTitle}
+                type="voters"
+                people={voters}
+                onChange={this.updateVote}
+                houseguests={this.people}
+                nominees={this.state.nominees}
+              />
+            )}
           </div>
         </div>
-
-        <footer>
-          <div className="copyright">&copy; Copyright 2017. Andy Hay</div>
-        </footer>
+        <Footer />
       </Fragment>
     )
   }

@@ -24,7 +24,7 @@ const SelectBox = props => {
 
   function getOptions() {
     let options = []
-    if (type === "voter") {
+    if (type === "voters") {
       nominees.forEach((person, key) => {
         options.push({
           value: key,
@@ -52,7 +52,7 @@ const SelectBox = props => {
 
   function getDefaultValue() {
     let defaultValue = ""
-    if (type === "voter") {
+    if (type === "voters") {
       defaultValue = thisPerson.vote
     } else {
       defaultValue = thisPerson.id

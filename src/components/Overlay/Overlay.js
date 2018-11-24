@@ -1,5 +1,6 @@
 import React from "react"
 import evictionMessages from "./data"
+import "./Overlay.css"
 
 const Overlay = props => {
   const { overlay, toggleOverlay, evictedPerson, people } = props

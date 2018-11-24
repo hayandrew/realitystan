@@ -1,5 +1,6 @@
 import React from "react"
 import Details from "@bbstan/details"
+import "./Person.css"
 
 const Person = props => {
   const type = props.type
@@ -42,7 +43,7 @@ const Person = props => {
     }
 
     let personClass = `houseguest houseguest-${type}`
-    let inputActive = !person.voteId && type === "voter"
+    let inputActive = !person.voteId && type === "voters"
 
     if ("is_evicted" in person) personClass += " is_evicted"
     if (inputActive) personClass += " houseguest--input-active"
@@ -55,7 +56,7 @@ const Person = props => {
     <div className={getPersonClass(person, type)} key={personName}>
       <div className="houseguest-details">
         <Details person={person} type={type} />
-        {!(type === "voter") ? props.children : ""}
+        {!(type === "voters") ? props.children : ""}
         <div
           className="houseguest-image"
           style={{
@@ -64,7 +65,7 @@ const Person = props => {
         >
           <div className="houseguest-stats">{getStatusIcons(person)}</div>
         </div>
-        {type === "voter" ? props.children : ""}
+        {type === "voters" ? props.children : ""}
       </div>
       {type === "nominees" ? renderVotes(person) : ""}
     </div>

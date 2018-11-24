@@ -1,20 +1,20 @@
 import React from "react"
+import "./Header.css"
 
-class Header extends React.Component {
-  render() {
-    return (
-      <div className="header">
-        <div className="header-left">
-          <div>
-            <h1>
-              Big Brother <span>game board</span>
-            </h1>
-          </div>
-          {this.props.children}
+const Header = props => {
+  return (
+    <div className="header">
+      <div className="header-left">
+        <div>
+          <h1>
+            Big Brother <span>game board</span>
+          </h1>
         </div>
-        <div className="header-right" />
+        {props.children}
       </div>
-    )
-  }
+      <div className="header-right" />
+    </div>
+  )
 }
+
 export default Header
