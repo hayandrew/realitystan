@@ -234,7 +234,7 @@ footer {
  *  Layout Styles
  *
  */
-.main-container {
+#root {
   margin: 0;
 }
 .header {

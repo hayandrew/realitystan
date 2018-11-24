@@ -1,6 +1,4 @@
 const data = {
-  nominees: [2, 3],
-  hoh: [1],
   show: {
     id: "1",
     name: "Big Brother 19 (US)",
@@ -10,6 +8,8 @@ const data = {
     leaderTitle: "Head of Household",
     finalists_title: "Finalists"
   },
+  nominees: [2, 3],
+  hoh: [1],
   people: [
     {
       id: 1,
@@ -21,9 +21,7 @@ const data = {
       occupation: "Eco-Friendly Marketing Rep",
       dob: "1279-12-01 00:00:00",
       description: "description",
-      image: "alex.jpg",
-      is_hoh: true,
-      hoh_key: 0
+      image: "alex.jpg"
     },
     {
       id: 2,
@@ -35,9 +33,7 @@ const data = {
       occupation: "Microbiologist",
       dob: "1279-12-01 00:00:00",
       description: "description",
-      image: "cameron.jpg",
-      nominee_key: 0,
-      is_nominee: true
+      image: "cameron.jpg"
     },
     {
       id: 3,
@@ -50,9 +46,7 @@ const data = {
       dob: "1279-12-01 00:00:00",
       description: "description",
       image: "christmas.jpg",
-      is_safe: true,
-      nominee_key: 1,
-      is_nominee: true
+      is_safe: true
     },
     {
       id: 4,

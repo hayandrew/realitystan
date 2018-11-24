@@ -1,7 +1,6 @@
 import React from "react"
 import Select from "react-select"
 import "./SelectBox.css"
-//https://github.com/JedWatson/react-select
 
 const SelectBox = props => {
   const type = props.type

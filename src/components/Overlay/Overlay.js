@@ -2,7 +2,7 @@ import React from "react"
 import evictionMessages from "./data"
 
 const Overlay = props => {
-  const overlay = props.overlay
+  const { overlay, toggleOverlay, evictedPerson, people } = props
 
   function renderPerson(person) {
     return (
@@ -23,8 +23,7 @@ const Overlay = props => {
   }
 
   function renderEvictedOverlay() {
-    const evictedPerson = props.evictedPerson
-    const votesAgainst = props.people.filter(
+    const votesAgainst = people.filter(
       person => person.voteId === evictedPerson.id
     )
 
@@ -39,7 +38,7 @@ const Overlay = props => {
 
         <h4>Votes Against:</h4>
         <div className="people overlay-votes-against">
-          {votesAgainst.map((person, key) => renderPerson(person))}
+          {votesAgainst.map(person => renderPerson(person))}
         </div>
       </div>
     )
@@ -47,16 +46,13 @@ const Overlay = props => {
 
   return (
     <div
-      onClick={props.toggleOverlay.bind(this, null)}
-      className={"overlay " + (props.overlay ? " overlay--active" : "")}
+      onClick={toggleOverlay}
+      className={"overlay " + (overlay ? " overlay--active" : "")}
     >
-      <button
-        onClick={props.toggleOverlay.bind(this, null)}
-        className="overlay--close"
-      >
+      <button onClick={toggleOverlay} className="overlay--close">
         Close
       </button>
-      {overlay === "evicted" ? renderEvictedOverlay() : ""}
+      {overlay && renderEvictedOverlay()}
     </div>
   )
 }

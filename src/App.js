@@ -1,4 +1,5 @@
-import React, { Component } from "react"
+import React, { Component, Fragment } from "react"
+import PropTypes from "prop-types"
 
 import Header from "@bbstan/header"
 import Overlay from "@bbstan/overlay"
@@ -14,22 +15,26 @@ class App extends Component {
 
     this.people = data.people
     this.show = data.show
+    this.hohData = data.hoh
+    this.nomineeData = data.nominees
 
     this.state = {
       nominees: [],
       hoh: [],
-      voters: []
+      voters: [],
+      overlay: false
     }
   }
 
   componentDidMount() {
-    const hoh = this.people.filter(person => data.hoh.includes(person.id))
+    const hoh = this.people.filter(person => this.hohData.includes(person.id))
     const nominees = this.people.filter(person =>
-      data.nominees.includes(person.id)
+      this.nomineeData.includes(person.id)
     )
     const voters = this.people.filter(
       person =>
-        !data.nominees.includes(person.id) && !data.hoh.includes(person.id)
+        !this.nomineeData.includes(person.id) &&
+        !this.hohData.includes(person.id)
     )
     this.setState({
       nominees: nominees,
@@ -38,18 +43,27 @@ class App extends Component {
     })
   }
 
+  /**
+   * Update nominees / hoh
+   * @param {string} key key of the array
+   * @param {obj} e an event object
+   * @returns {void}
+   */
   updateGroup = (key, e) => {
     const type = e.type
     const id = e.value
     const group = this.state[type]
     const prev = group[key]
 
-    // Check that person is not a voter
+    /* Check that person is not a voter */
     if (!this.state.voters.find(person => person.id === id)) {
       return false
     }
 
+    /* Update the voters to add previous and remove new */
     this.updateVoters(id, prev)
+
+    /* Add new person to group */
     group[key] = this.people.find(obj => obj.id === id)
 
     this.setState({
@@ -57,12 +71,21 @@ class App extends Component {
     })
   }
 
+  /**
+   * Update voters
+   * @param {string} id of the person to remove
+   * @param {obj} prevPerson person to add
+   * @returns {void}
+   */
   updateVoters(id, prevPerson) {
     const voters = this.state.voters
+
+    /* Add previous person to voters array and remove new person */
     voters.push(prevPerson)
     voters.splice(voters.findIndex(person => person.id === id), 1)
     voters.sort((a, b) => a.id - b.id)
 
+    /* Reset votes on previous person */
     voters.forEach(person => {
       if (person.voteId === prevPerson.id) {
         delete person.vote
@@ -75,58 +98,67 @@ class App extends Component {
     })
   }
 
+  /**
+   * Compare votes on nominees
+   * @param {string} id of the person to remove
+   * @param {obj} prevPerson person to add
+   * @returns {void}
+   */
   compareVotes(nominees) {
     let maxCount = this.state.voters.length / 2
-    let isEvenCount = maxCount % 1 === 0
-    let evictedPerson = null
 
+    /* TODO: Set even vote */
+    let isEvenCount = maxCount % 1 === 0
     if (!isEvenCount) {
       maxCount = Math.ceil(maxCount)
     }
 
-    // check whether either nominee has maxCount
-    for (var i = 0, len = nominees.length; i < len; i++) {
-      if (nominees[i].voteCount >= maxCount) {
-        evictedPerson = nominees[i]
-        break
-      }
-    }
-    return evictedPerson
+    /* Return nominee with maxCount */
+    return nominees.find(nominee => nominee.voteCount >= maxCount)
   }
 
+  /**
+   * Update vote count
+   * @param {number} key of current voter
+   * @param {obj} event contains event values
+   * @returns {void}
+   */
   updateVote = (key, event) => {
-    let people = this.state.voters
-    let { nominees } = this.state
+    let { nominees, voters } = this.state
     let evictedPerson = null
 
-    // set vote
-    people.forEach(person => {
+    /* Add vote to current voter */
+    voters.forEach(person => {
       if (person.id === event.personId) {
-        person.vote = parseInt(event.value, 10)
-        person.voteId = parseInt(event.id, 10)
+        person.vote = event.value
+        person.voteId = event.id
       }
     })
 
-    // count vote
+    /* Count vote and add to nominee */
     nominees.forEach(nominee => {
-      let voteCount = people.filter(person => person.voteId === nominee.id)
-        .length
-      nominee.voteCount = voteCount
+      nominee.voteCount = voters.filter(
+        person => person.voteId === nominee.id
+      ).length
     })
 
-    // set evicted person
-    evictedPerson = this.compareVotes(nominees, people)
+    /* Set evicted person */
+    evictedPerson = this.compareVotes(nominees)
 
+    /* Update evicted person and toggle overlay */
     this.setState({
-      houseguests: people,
       evictedPerson: evictedPerson,
-      overlay: evictedPerson ? "evicted" : null
+      overlay: evictedPerson
     })
   }
 
-  toggleOverlay = key => {
+  /**
+   * Toggle the overlay state
+   * @returns {void}
+   */
+  toggleOverlay = () => {
     this.setState({
-      overlay: key
+      overlay: !this.state.overlay
     })
   }
 
@@ -138,12 +170,12 @@ class App extends Component {
     const { hoh, nominees, voters } = this.state
 
     return (
-      <div className="main-container">
+      <Fragment>
         <Overlay
           evictedPerson={this.state.evictedPerson}
           overlay={this.state.overlay}
           toggleOverlay={this.toggleOverlay}
-          people={this.people}
+          people={this.state.voters}
           show={this.show}
         />
 
@@ -154,13 +186,16 @@ class App extends Component {
             {hoh.length && (
               <div className="hoh">
                 <h3>{this.show.leaderTitle}</h3>
-                <People
-                  type="hoh"
-                  people={hoh}
-                  nominees={nominees}
-                  onChange={this.updateGroup}
-                  houseguests={this.people}
-                />
+                <div className="hoh-inner">
+                  <People
+                    title={this.show.leaderTitle}
+                    type="hoh"
+                    people={hoh}
+                    nominees={nominees}
+                    onChange={this.updateGroup}
+                    houseguests={this.people}
+                  />
+                </div>
               </div>
             )}
             {nominees.length && (
@@ -168,6 +203,7 @@ class App extends Component {
                 <h3>{this.show.nomineesTitle}</h3>
                 <div className="nominees-inner">
                   <People
+                    title={this.show.nomineesTitle}
                     type="nominees"
                     people={nominees}
                     hoh={hoh}
@@ -181,15 +217,18 @@ class App extends Component {
           </div>
 
           <div className="board-people">
-            <h3>{this.show.peopleTitle}</h3>
             <div className="voters">
-              <People
-                type="voter"
-                people={voters}
-                onChange={this.updateVote}
-                houseguests={this.people}
-                nominees={this.state.nominees}
-              />
+              <h3>{this.show.peopleTitle}</h3>
+              <div className="voters-inner">
+                <People
+                  title={this.show.peopleTitle}
+                  type="voter"
+                  people={voters}
+                  onChange={this.updateVote}
+                  houseguests={this.people}
+                  nominees={this.state.nominees}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -197,9 +236,16 @@ class App extends Component {
         <footer>
           <div className="copyright">&copy; Copyright 2017. Andy Hay</div>
         </footer>
-      </div>
+      </Fragment>
     )
   }
+}
+
+App.propTypes = {
+  nominees: PropTypes.array,
+  hoh: PropTypes.array,
+  voters: PropTypes.array,
+  overlay: PropTypes.bool
 }
 
 export default App
