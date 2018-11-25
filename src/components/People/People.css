@@ -12,30 +12,30 @@
   cursor: auto;
 }
 .board-people .houseguest-outer {
-  margin-bottom: 10px;
+  margin-bottom: var(--voters-margin-bottom);
 }
 .hoh .houseguest,
 .evictees .houseguest {
   display: block;
 }
 .hoh .houseguest-image {
-  height: 13em;
-  width: 13em;
+  height: var(--hoh-image-height);
+  width: var(--hoh-image-width);
 }
 .nominees .houseguest-image {
-  height: 10.75em;
-  width: 10.75em;
+  height: var(--nominee-image-height);
+  width: var(--nominee-image-width);
 }
 .houseguest-voters .houseguest-image {
-  height: 6em;
-  width: 6em;
+  height: var(--voters-image-height);
+  width: var(--voters-image-width);
 }
 .houseguest {
   vertical-align: top;
-  padding: 0.75em;
-  margin: 0 0.2em;
+  padding: var(--houseguest-padding);
+  margin: var(--houseguest-margin);
   text-align: center;
-  border: 1px solid #aaa;
+  border: var(--houseguest-border);
   -webkit-transition: all 300ms linear;
   -moz-transition: all 300ms linear;
   -o-transition: all 300ms linear;
@@ -45,8 +45,8 @@
   display: none;
 }
 .houseguest-image {
-  height: 120px;
-  width: 130px;
+  height: var(--houseguest-image-height);
+  width: var(--houseguest-image-width);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
@@ -54,12 +54,12 @@
   align-items: flex-end;
 }
 .houseguest img {
-  height: 80px;
+  height: var(--houseguest-img-height);
 }
 .houseguest.is_evicted {
-  filter: grayscale(100%);
-  opacity: 0.5;
-  background: #dedede;
+  filter: var(--houseguest-is_evicted-filter);
+  opacity: var(--houseguest-is_evicted-opacity);
+  background: var(--houseguest-is_evicted-bg);
   position: relative;
 }
 .houseguest-details {
@@ -79,12 +79,6 @@
   width: 100%;
   background-position: 50%;
   z-index: 1;
-}
-.houseguest.empty {
-  height: 150px;
-  width: 150px;
-  background: #ccc;
-  border: 1px solid #000;
 }
 .detail-hover {
   cursor: pointer;
@@ -110,8 +104,11 @@
   transition: all 300ms linear;
 }
 .houseguest-nominee.is_nominee_evicted {
-  border-color: red;
+  border-color: var(--houseguest-nominee-is_evicted-border);
+}
+.houseguest {
+  background: var(--houseguest-bg);
 }
 .houseguest--input-active {
-  background: #ccc;
+  background: var(--houseguest-bg-active);
 }

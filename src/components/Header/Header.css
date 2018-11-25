@@ -1,10 +1,8 @@
 .header {
-  margin: 0.75em 2em 0;
-  border-bottom: 1px solid #efefef;
+  margin: var(--header-margin);
+  border-bottom: var(--header-border-bottom);
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.header-left > div {
-  padding-bottom: 0.5em;
+  padding: var(--header-padding);
 }

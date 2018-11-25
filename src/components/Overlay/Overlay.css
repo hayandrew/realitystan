@@ -10,7 +10,7 @@
   max-height: 0;
   overflow: hidden;
   opacity: 0;
-  background: #fff;
+  background: var(--overlay-bg-color);
   z-index: 100;
   -webkit-transition: opacity 300ms linear;
   -moz-transition: opacity 300ms linear;
@@ -52,5 +52,5 @@
   display: block;
   width: 100%;
   text-align: center;
-  margin: 20px 0 10px 0;
+  margin: var(--overlay-h4-margin);
 }

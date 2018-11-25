@@ -1,0 +1,48 @@
+:root {
+  --main-bg-color: #fff;
+  --main-font: 500 0.5em "Montserrat", serif;
+
+  --h1-span-font-size: 75%;
+  --h3-font-size: 1.1em;
+  --h3-padding: 0;
+  --h3-margin: 1em 0 0.75em;
+
+  --header-border-bottom: 1px solid #efefef;
+  --header-margin: 0.75em 2em 0;
+  --header-padding: 0 0 0.5em;
+
+  --overlay-bg-color: #fff;
+  --overlay-h4-margin: 20px 0 10px 0;
+
+  --hoh-image-height: 14.28em;
+  --hoh-image-width: 13em;
+
+  --nominee-image-height: 10.75em;
+  --nominee-image-width: 10.75em;
+
+  --voters-margin-bottom: 0.5em;
+  --voters-image-height: 6em;
+  --voters-image-width: 6em;
+
+  --houseguest-padding: 0.75em;
+  --houseguest-margin: 0 0.2em;
+  --houseguest-border: 1px solid #aaa;
+  --houseguest-image-height: 120px;
+  --houseguest-image-width: 130px;
+  --houseguest-img-height: 80px;
+
+  --houseguest-is_evicted-filter: grayscale(100%);
+  --houseguest-is_evicted-bg: #dedede;
+  --houseguest-is_evicted-opacity: 0.5;
+
+  --houseguest-bg: #fff;
+  --houseguest-bg-active: #ccc;
+
+  --evictee-voter-name-padding: 0.75em;
+
+  --evictee-votes-padding: 0.5em 0 0;
+  --evictee-votes-label-font: 700 1em "Montserrat", serif;
+  --evictee-votes-count-font: 700 1.5em "Montserrat", serif;
+
+  --houseguest-nominee-is_evicted-border: red;
+}

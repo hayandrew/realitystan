@@ -1,6 +1,6 @@
 body {
-  font-family: "Helvetica Nueue", Helvetica, sans-serif;
-  font-size: 0.5em;
+  font: var(--main-font);
+  background: var(--main-bg-color);
 }
 @media screen and (min-width: 410px) {
   body {
@@ -35,13 +35,14 @@ h2 {
   display: inline;
 }
 h1 span {
-  font-size: 75%;
+  font-size: var(--h1-span-font-size);
 }
 h3 {
-  font-size: 1.1em;
+  font-size: var(--h3-font-size);
   text-transform: uppercase;
-  padding: 0.05em 0;
+  padding: var(--h3-padding);
   text-align: center;
+  margin: var(--h3-margin);
 }
 
 .board-leaderboard {
@@ -50,4 +51,8 @@ h3 {
 }
 .button {
   cursor: pointer;
+}
+button {
+  background-color: transparent;
+  border: 0 none;
 }
