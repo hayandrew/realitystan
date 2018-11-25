@@ -32,7 +32,7 @@ const data = {
       id: 4,
       firstName: "Finn",
       lastName: "",
-      image: "finn.png"
+      image: "finn.jpg"
     },
     {
       id: 5,
@@ -80,7 +80,7 @@ const data = {
       id: 12,
       firstName: "Palpatine",
       lastName: "",
-      image: "palpatine.png"
+      image: "palpatine.jpg"
     },
     {
       id: 13,
@@ -104,13 +104,13 @@ const data = {
       id: 16,
       firstName: "Yoda",
       lastName: "",
-      image: "yoda.png"
+      image: "yoda.jpg"
     },
     {
       id: 17,
       firstName: "Kylo",
       lastName: "Ren",
-      image: "kylo.png"
+      image: "kylo.jpg"
     }
   ]
 }
