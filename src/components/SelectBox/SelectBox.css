@@ -332,6 +332,10 @@
   background-color: rgba(0, 126, 255, 0.04);
   color: #333;
 }
+.hoh .Select-option.is-selected,
+.nominees .Select-option.is-selected {
+  display: none;
+}
 .Select-option.is-focused {
   background-color: #ebf5ff;
   /* Fallback color for IE 8 */
