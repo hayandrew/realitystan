@@ -66,3 +66,7 @@
 .checkbox input[type="checkbox"]:checked + label:after {
   opacity: 1;
 }
+
+.voters .houseguest-input-active .Select-control {
+  background: transparent !important;
+}

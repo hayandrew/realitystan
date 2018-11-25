@@ -74,8 +74,10 @@
 
   --select-color: #fff;
   --select-arrow-color: #fff;
-  --select-bg: #006cca;
+  --select-bg: rgb(0, 108, 202);
   --select-has-value-bg: #006cca;
+  --select-input-active-bg: rgba(15, 26, 176, 0.5);
+  --select-input-active-border: 1px solid rgb(15, 26, 176);
   --select-border: 1px solid #0061b6;
   --select-color: #fff;
 }

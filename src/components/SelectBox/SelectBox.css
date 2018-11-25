@@ -448,6 +448,31 @@
 .Select.has-value .Select-control {
   background-color: var(--select-has-value-bg);
 }
+.houseguest-voters .Select .Select-control {
+  background-color: var(--select-input-active-bg);
+  border: var(--select-input-active-border);
+  color: #c1c1c1;
+}
+.houseguest-voters .Select .Select-control .Select-placeholder {
+  color: #c1c1c1;
+}
+.houseguest-voters .Select.has-value .Select-control {
+  background-color: var(--select-bg);
+}
+.houseguest-voters .Select.is-open > .Select-control .Select-arrow {
+  top: -2px;
+  border-color: transparent transparent #c1c1c1;
+  border-width: 0 5px 5px;
+}
+.houseguest-voters .Select .Select-arrow-zone:hover > .Select-arrow {
+  border-top-color: #c1c1c1;
+}
+.houseguest-voters .Select.has-value .Select-arrow {
+  border-color: #fff transparent transparent;
+}
+.houseguest-voters .Select-arrow {
+  border-color: #c1c1c1 transparent transparent;
+}
 @keyframes Select-animation-spin {
   to {
     transform: rotate(1turn);
