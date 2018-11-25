@@ -9,6 +9,7 @@
 }
 .evictee-voter-name {
   padding-top: var(--evictee-voter-name-padding);
+  color: var(--evictee-voter-name-color);
 }
 .evictee-votes--label {
   font: var(--evictee-votes-label-font);

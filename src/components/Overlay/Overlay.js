@@ -50,7 +50,7 @@ const Overlay = props => {
           <div className="people">{renderPerson(evictedPerson)}</div>
         </div>
 
-        <h4>Votes Against:</h4>
+        <h4>Votes Against</h4>
         <div className="people overlay-votes-against">
           {votesAgainst.map(person => renderPerson(person))}
         </div>

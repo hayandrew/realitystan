@@ -86,7 +86,7 @@ const Person = props => {
     <div className="houseguest-outer">
       <div className={getPersonClass(person, type)} key={firstName}>
         <div className="houseguest-details">
-          {type === "voters" && (
+          {(type === "voters" || type === "overlay") && (
             <div class="detail-hover">{person.firstName}</div>
           )}
           {!(type === "voters") && children}
@@ -102,9 +102,6 @@ const Person = props => {
         </div>
         {type === "voters" && renderEvictionToggle()}
         {type === "nominees" && renderVotes(person)}
-        {type === "overlay" && (
-          <div className="evictee-voter-name">{firstName}</div>
-        )}
       </div>
     </div>
   )
