@@ -1,12 +1,11 @@
 const data = {
   show: {
     id: "1",
-    name: "Big Brother 19 (US)",
-    short_id: "us-bb19",
+    name: "Star Wars Big Brother",
+    short_id: "us-swbb",
     nomineesTitle: "Nominees",
     peopleTitle: "Voters",
-    leaderTitle: "Head of Household",
-    finalists_title: "Finalists"
+    leaderTitle: "Head of Household"
   },
   nominees: [2, 3],
   hoh: [1],
@@ -15,212 +14,102 @@ const data = {
       id: 1,
       firstName: "Boba Fett",
       lastName: "",
-      age: 28,
-      hometown: "Thousand Oaks, CA",
-      residence: "Camarillo, CA",
-      occupation: "Eco-Friendly Marketing Rep",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "boba.jpg"
     },
     {
       id: 2,
       firstName: "C3P0",
       lastName: "",
-      age: 24,
-      hometown: "North Aurora, IL",
-      residence: "Woodridge, IL",
-      occupation: "Microbiologist",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "c3p0.jpg"
     },
     {
       id: 3,
       firstName: "Chewie",
       lastName: "",
-      age: 35,
-      hometown: "Lynchburg, VA",
-      residence: "Raliegh, NC",
-      occupation: "Fitness Superstar",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
-      image: "chewbacca.jpg",
-      is_safe: true
+      image: "chewbacca.jpg"
     },
     {
       id: 4,
       firstName: "Finn",
       lastName: "",
-      age: 32,
-      hometown: "Lake Mills, IA",
-      residence: "Plano, TX",
-      occupation: "Construction Sales Rep",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
-      image: "finn.png",
-      is_safe: true
+      image: "finn.png"
     },
     {
       id: 5,
       firstName: "Han",
       lastName: "Solo",
-      age: 30,
-      hometown: "Tuskegee, AL",
-      residence: "Woodbridge, VA",
-      occupation: "Government Engineer",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "han.jpg"
     },
     {
       id: 6,
       firstName: "Lando",
       lastName: "Calrissian",
-      age: 26,
-      hometown: "Fort Worth, TX",
-      residence: "Dallas, TX",
-      occupation: "Radio Personality",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "lando.jpg"
     },
     {
       id: 7,
       firstName: "Leia",
       lastName: "Organa",
-      age: 37,
-      hometown: "Humeston, IA",
-      residence: "Humeston, IA",
-      occupation: "Rodeo Clown",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "leia.jpg"
     },
     {
       id: 8,
       firstName: "Luke",
       lastName: "Skywalker",
-      age: 26,
-      hometown: "Cranston, RI",
-      residence: "Los Angeles, CA",
-      occupation: "VIP Concierge",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
-      image: "luke.jpg",
-      is_punished: true,
-      is_havenot: true
+      image: "luke.jpg"
     },
     {
       id: 9,
       firstName: "Maul",
       lastName: "",
-      age: 24,
-      hometown: "Celebration, FL",
-      residence: "Las Vegas, NV",
-      occupation: "Timeshare Sales Rep",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
-      image: "maul.jpg",
-      is_punished: true,
-      is_havenot: true
+      image: "maul.jpg"
     },
     {
       id: 10,
       firstName: "Obi-Wan",
       lastName: "Kenobi",
-      age: 23,
-      hometown: "Miami, FL",
-      residence: "Homestead, FL",
-      occupation: "Hair Care Sales",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
-      image: "obiwan.jpg",
-      is_pov: true
+      image: "obiwan.jpg"
     },
     {
       id: 11,
       firstName: "Padme",
       lastName: "Amidala",
-      age: 55,
-      hometown: "Boston, MA",
-      residence: "Boston, MA",
-      occupation: "Stay-at-home Dad",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
-      image: "padme.jpg",
-      is_pov_nom: true
+      image: "padme.jpg"
     },
     {
       id: 12,
       firstName: "Palpatine",
       lastName: "",
-      age: 26,
-      hometown: "Grand Island, NY",
-      residence: "Grand Island, NY",
-      occupation: "Personal Trainer",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "palpatine.png"
     },
     {
       id: 13,
       firstName: "R2D2",
       lastName: "",
-      age: 33,
-      hometown: "Arlington, VA",
-      residence: "Arlington, VA",
-      occupation: "Renovation Consultant",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "r2d2.jpg"
     },
     {
       id: 14,
       firstName: "Rey",
       lastName: "",
-      age: 28,
-      hometown: "Cathedral City, CA",
-      residence: "Phoenix, AZ",
-      occupation: "Dog Walker",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "rey.jpg"
     },
     {
       id: 15,
       firstName: "Vader",
       lastName: "",
-      age: 21,
-      hometown: "Grand Rapids, MI",
-      residence: "Grand Rapids, MI",
-      occupation: "Cosplay Artist",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "vader.jpg"
     },
     {
       id: 16,
       firstName: "Yoda",
       lastName: "",
-      age: 23,
-      hometown: "Devalls Bluff, AR",
-      residence: "Devalls Bluff, AR",
-      occupation: "Dance Teacher",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "yoda.png"
     },
     {
       id: 17,
       firstName: "Kylo",
       lastName: "Ren",
-      age: 24,
-      hometown: "Tarzana, CA",
-      residence: "Tarzana, CA",
-      occupation: "Clothing Designer",
-      dob: "1279-12-01 00:00:00",
-      description: "description",
       image: "kylo.png"
     }
   ]
