@@ -30,10 +30,10 @@
   --nominee-image-height: 10.75em;
   --nominee-image-width: 10.75em;
 
-  --voters-margin-bottom: 0.5em;
+  --voters-margin: 0 0 0.5em 0.125em;
   --voters-image-height: 6em;
   --voters-image-width: 6em;
-  --voters-padding: 0 0.5em 0.5em;
+  --voters-padding: 0 0.75em 0.25em;
   --voters-select-margin: 0.3em 0 0;
   --voters-select-font-size: 0.775em;
 
@@ -52,12 +52,12 @@
   --houseguest-hoh-select-margin: 0 0 0.4em;
   --houseguest-border-radius: 0.3em;
 
-  --houseguest-is_evicted-filter: grayscale(100%);
+  --houseguest-is_evicted-filter: brightness(70%);
   --houseguest-is_evicted-bg: #0f1ab0;
   --houseguest-is_evicted-opacity: 0.5;
 
   --houseguest-bg: #0c1378;
-  --houseguest-bg-active: #070745;
+  --houseguest-bg-active: #000023;
 
   --evictee-voter-name-padding: 0.75em;
   --evictee-voter-name-color: #fff;
@@ -75,6 +75,7 @@
   --select-color: #fff;
   --select-arrow-color: #fff;
   --select-bg: #006cca;
+  --select-has-value-bg: #006cca;
   --select-border: 1px solid #0061b6;
   --select-color: #fff;
 }

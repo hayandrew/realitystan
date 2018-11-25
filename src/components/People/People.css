@@ -12,7 +12,7 @@
   cursor: auto;
 }
 .board-people .houseguest-outer {
-  margin-bottom: var(--voters-margin-bottom);
+  margin: var(--voters-margin);
 }
 .hoh .Select,
 .nominees .Select {

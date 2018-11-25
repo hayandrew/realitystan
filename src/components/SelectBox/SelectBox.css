@@ -441,6 +441,9 @@
 .Select--multi.is-disabled .Select-value-icon:active {
   background-color: #fcfcfc;
 }
+.Select.has-value .Select-control {
+  background-color: var(--select-has-value-bg);
+}
 @keyframes Select-animation-spin {
   to {
     transform: rotate(1turn);

@@ -66,7 +66,7 @@ const Person = props => {
     const is_evicted = get(person, "is_evicted", false)
     return (
       <Fragment>
-        <div class="checkbox">
+        <div className="checkbox">
           <input
             type="checkbox"
             name={person.id}
@@ -75,7 +75,7 @@ const Person = props => {
             onChange={toggleEviction}
             id={`checkbox_${person.id}`}
           />
-          <label for={`checkbox_${person.id}`} />
+          <label htmlFor={`checkbox_${person.id}`} />
         </div>
         <label className="evict-label">Evict</label>
       </Fragment>
@@ -87,7 +87,7 @@ const Person = props => {
       <div className={getPersonClass(person, type)} key={firstName}>
         <div className="houseguest-details">
           {(type === "voters" || type === "overlay") && (
-            <div class="detail-hover">{person.firstName}</div>
+            <div className="detail-hover">{person.firstName}</div>
           )}
           {!(type === "voters") && children}
           <div
