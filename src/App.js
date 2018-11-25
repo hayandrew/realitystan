@@ -81,6 +81,17 @@ class App extends Component {
   }
 
   /**
+   * Removes vote from person object
+   * @param {obj} person a person object
+   * @returns {obj} updated person object
+   */
+  deleteVote(person) {
+    delete person.vote
+    delete person.voteId
+    return person
+  }
+
+  /**
    * Update nominees / hoh
    * @param {string} key key of the array
    * @param {obj} e an event object
@@ -96,6 +107,9 @@ class App extends Component {
     if (!this.state.voters.find(person => person.id === id)) {
       return false
     }
+
+    /* Remove vote from previous person */
+    this.deleteVote(prev)
 
     /* Update the voters to add previous and remove new */
     this.updateVoters(id, prev)
@@ -126,11 +140,10 @@ class App extends Component {
     voters.splice(voters.findIndex(person => person.id === id), 1)
     voters.sort((a, b) => a.id - b.id)
 
-    /* Reset votes on previous person */
+    /* Remove voter votes on previous person */
     voters.forEach(person => {
       if (person.voteId === prevPerson.id) {
-        delete person.vote
-        delete person.voteId
+        this.deleteVote(person)
       }
     })
 

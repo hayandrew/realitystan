@@ -1,3 +1,6 @@
 footer {
   text-align: center;
+  color: var(--footer-color);
+  font-size: var(--footer-font-size);
+  padding: 1em 0;
 }

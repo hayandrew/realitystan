@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@bbstan/details": "^1.0.0",
     "@bbstan/footer": "^1.0.0",
     "@bbstan/header": "^1.0.0",
     "@bbstan/overlay": "^1.0.0",

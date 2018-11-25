@@ -1,6 +1,5 @@
-import React from "react"
+import React, { Fragment } from "react"
 import classnames from "classnames"
-import Details from "@bbstan/details"
 import "./Person.css"
 
 const get = require("lodash/get")
@@ -66,13 +65,20 @@ const Person = props => {
   function renderEvictionToggle() {
     const is_evicted = get(person, "is_evicted", false)
     return (
-      <input
-        type="checkbox"
-        name={person.id}
-        checked={is_evicted}
-        value={is_evicted}
-        onChange={toggleEviction}
-      />
+      <Fragment>
+        <div class="checkbox">
+          <input
+            type="checkbox"
+            name={person.id}
+            checked={is_evicted}
+            value={is_evicted}
+            onChange={toggleEviction}
+            id={`checkbox_${person.id}`}
+          />
+          <label for={`checkbox_${person.id}`} />
+        </div>
+        <label className="evict-label">Evict</label>
+      </Fragment>
     )
   }
 
@@ -80,8 +86,9 @@ const Person = props => {
     <div className="houseguest-outer">
       <div className={getPersonClass(person, type)} key={firstName}>
         <div className="houseguest-details">
-          {/* TODO: Add details */}
-          <Details person={person} type={type} />
+          {type === "voters" && (
+            <div class="detail-hover">{person.firstName}</div>
+          )}
           {!(type === "voters") && children}
           <div
             className="houseguest-image"

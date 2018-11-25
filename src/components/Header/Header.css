@@ -5,4 +5,5 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--header-padding);
+  background: var(--header-bg);
 }

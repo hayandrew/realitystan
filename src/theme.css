@@ -1,15 +1,21 @@
 :root {
-  --main-bg-color: #fff;
-  --main-font: 500 0.5em "Montserrat", serif;
+  --main-bg-color: #000023;
+  --main-font-family: "Montserrat", serif;
+  --main-font-weight: 500;
 
   --h1-span-font-size: 75%;
-  --h3-font-size: 1.1em;
-  --h3-padding: 0;
-  --h3-margin: 1em 0 0.75em;
+  --h1-letter-spacing: -0.02em;
+  --h1-color: #fff;
 
-  --header-border-bottom: 1px solid #efefef;
-  --header-margin: 0.75em 2em 0;
-  --header-padding: 0 0 0.5em;
+  --h3-font-size: 1.2em;
+  --h3-padding: 0;
+  --h3-margin: 1.15em 0 0.65em;
+  --h3-letter-spacing: -0.02em;
+  --h3-color: #fff;
+
+  --header-border-bottom: 1px solid #0f1ab0;
+  --header-padding: 0.75em 2em 0.5em;
+  --header-bg: #0c1378;
 
   --overlay-bg-color: #fff;
   --overlay-h4-margin: 20px 0 10px 0;
@@ -23,26 +29,47 @@
   --voters-margin-bottom: 0.5em;
   --voters-image-height: 6em;
   --voters-image-width: 6em;
+  --voters-padding: 0 0.5em 0.5em;
+  --voters-select-margin: 0.3em 0 0;
+  --voters-select-font-size: 0.775em;
+
+  --voter-name-font: 500 0.9em "Montserrat", san-serif;
+  --voter-name-padding: 0.5em;
+  --voter-name-color: #fff;
+
+  --overlay-voters-margin: 0.45em;
 
   --houseguest-padding: 0.75em;
   --houseguest-margin: 0 0.2em;
-  --houseguest-border: 1px solid #aaa;
+  --houseguest-border: 1px solid #0f1ab0;
   --houseguest-image-height: 120px;
   --houseguest-image-width: 130px;
   --houseguest-img-height: 80px;
+  --houseguest-hoh-select-margin: 0 0 0.4em;
+  --houseguest-border-radius: 0.3em;
 
   --houseguest-is_evicted-filter: grayscale(100%);
-  --houseguest-is_evicted-bg: #dedede;
+  --houseguest-is_evicted-bg: #0f1ab0;
   --houseguest-is_evicted-opacity: 0.5;
 
-  --houseguest-bg: #fff;
-  --houseguest-bg-active: #ccc;
+  --houseguest-bg: #0c1378;
+  --houseguest-bg-active: #070745;
 
   --evictee-voter-name-padding: 0.75em;
 
   --evictee-votes-padding: 0.5em 0 0;
+  --evictee-votes-color: #fff;
   --evictee-votes-label-font: 700 1em "Montserrat", serif;
   --evictee-votes-count-font: 700 1.5em "Montserrat", serif;
 
   --houseguest-nominee-is_evicted-border: red;
+
+  --footer-color: #fff;
+  --footer-font-size: 0.75em;
+
+  --select-color: #fff;
+  --select-arrow-color: #fff;
+  --select-bg: #006cca;
+  --select-border: 1px solid #0061b6;
+  --select-color: #fff;
 }

@@ -7,7 +7,7 @@ const Header = props => {
       <div className="header-left">
         <div>
           <h1>
-            Big Brother <span>game board</span>
+            Big Brother <span>calculator</span>
           </h1>
         </div>
         {props.children}

@@ -54,3 +54,6 @@
   text-align: center;
   margin: var(--overlay-h4-margin);
 }
+.overlay-votes-against .houseguest {
+  margin-bottom: var(--overlay-voters-margin);
+}
