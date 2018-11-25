@@ -1,7 +1,3 @@
-/*
- *  Overlay Styles
- *
- */
 .overlay {
   position: fixed;
   height: 0;
@@ -60,9 +56,7 @@
 .overlay-inner h3 {
   text-transform: none;
 }
-.overlay-votes-against .houseguest {
+.overlay-inner .houseguest {
   padding-top: 0;
   margin-bottom: var(--overlay-voters-margin);
-}
-.overlay-votes-against .detail-hover {
 }
