@@ -6,22 +6,18 @@ import Header from "@bbstan/header"
 import People from "@bbstan/people"
 import Footer from "@bbstan/footer"
 
-import data from "./data"
-
 import "./App.css"
 
 class App extends Component {
   constructor(props) {
     super(props)
 
-    /* Set non-state variables */
-    this.people = data.people
-    this.show = data.show
-    this.hohData = data.hoh
-    this.nomineeData = data.nominees
+    this.showApi = "http://localhost:5000/api/show"
+    this.showId = "5c040f9c3090cc98f4822a21"
 
     /* Set initial state */
     this.state = {
+      show: {},
       nominees: [],
       hoh: [],
       voters: [],
@@ -30,26 +26,19 @@ class App extends Component {
 
     /* Bind functions to this */
     this.documentKeyDown = this.documentKeyDown.bind(this)
+    this.fetchData = this.fetchData.bind(this)
   }
 
   componentDidMount() {
-    /* Filter objects */
-    const hoh = this.people.filter(person => this.hohData.includes(person.id))
-    const nominees = this.people.filter(person =>
-      this.nomineeData.includes(person.id)
-    )
-    const voters = this.people.filter(
-      person =>
-        !this.nomineeData.includes(person.id) &&
-        !this.hohData.includes(person.id)
-    )
-
-    this.setState({
-      nominees: nominees,
-      hoh: hoh,
-      voters: voters
+    /* Get data from API */
+    this.fetchData().then(data => {
+      this.setState({
+        show: data.show,
+        nominees: data.nominees,
+        hoh: data.hoh,
+        voters: data.voters
+      })
     })
-
     /* Add event listeners */
     document.addEventListener("keydown", this.documentKeyDown, false)
   }
@@ -57,6 +46,20 @@ class App extends Component {
   componentWillUnmount() {
     /* Remove event listeners */
     document.removeEventListener("keydown", this.documentKeyDown)
+  }
+
+  /**
+   * Fetches data from the API
+   * @param {week} number the week number
+   * @returns {Promise} data from the API
+   */
+  fetchData(week = 1) {
+    return fetch(`${this.showApi}/${this.showId}/${week}`)
+      .then(resp => resp.json())
+      .then(function(newData) {
+        return newData
+      })
+      .catch(function() {})
   }
 
   /**
@@ -108,14 +111,14 @@ class App extends Component {
       return false
     }
 
+    /* Add new person to group */
+    group[key] = this.state.voters.find(obj => obj.id === id)
+
     /* Remove vote from previous person */
     this.deleteVote(prev)
 
     /* Update the voters to add previous and remove new */
     this.updateVoters(id, prev)
-
-    /* Add new person to group */
-    group[key] = this.people.find(obj => obj.id === id)
 
     /* Set the state and recount the votes */
     this.setState(
@@ -248,7 +251,7 @@ class App extends Component {
           overlay={this.state.overlay}
           toggleOverlay={this.toggleOverlay}
           people={this.state.voters}
-          show={this.show}
+          show={this.state.show}
         />
 
         <Header />
@@ -256,7 +259,7 @@ class App extends Component {
           <div className="board-leaderboard">
             {hoh.length && (
               <People
-                title={this.show.leaderTitle}
+                title={this.state.show.leaderTitle}
                 type="hoh"
                 people={hoh}
                 nominees={nominees}
@@ -266,7 +269,7 @@ class App extends Component {
             )}
             {nominees.length && (
               <People
-                title={this.show.nomineesTitle}
+                title={this.state.show.nomineesTitle}
                 type="nominees"
                 people={nominees}
                 hoh={hoh}
@@ -279,7 +282,7 @@ class App extends Component {
           <div className="board-people">
             {voters.length && (
               <People
-                title={this.show.peopleTitle}
+                title={this.state.show.peopleTitle}
                 type="voters"
                 people={voters}
                 onChange={this.updateVote}
