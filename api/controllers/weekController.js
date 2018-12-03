@@ -19,7 +19,6 @@ exports.list_by_show = function(req, res) {
 exports.list_week_persons = function(req, res) {
   let weekData = {}
   let personData = {}
-  let weekData = {}
   week
     .findById(req.params.weekId, function(err, week) {
       if (err) res.send(err)

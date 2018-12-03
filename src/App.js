@@ -12,7 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props)
 
-    this.showApi = "http://localhost:5000/api/show"
+    this.showApi = "/api/show"
     this.showId = "5c040f9c3090cc98f4822a21"
 
     /* Set initial state */
@@ -59,7 +59,9 @@ class App extends Component {
       .then(function(newData) {
         return newData
       })
-      .catch(function() {})
+      .catch(function(error) {
+        console.log(error)
+      })
   }
 
   /**

@@ -38,24 +38,21 @@ exports.list_show_persons = function(req, res) {
   let personData = {}
   let weekData = {}
   let currentWeek = 0
-  show
-    .findById(req.params.showId, function(err, show) {
+
+  show.findById(req.params.showId, function(err, show) {
+    if (err) res.send(err)
+    showData = show
+    person.find({ showId: req.params.showId }, function(err, person) {
       if (err) res.send(err)
-      showData = show
-    })
-    .then(
-      person.find({ showId: req.params.showId }, function(err, person) {
-        if (err) res.send(err)
-        personData = person
-      })
-    )
-    .then(
+      personData = person
       week.find({ showId: req.params.showId }, function(err, week) {
+        if (err) res.send(err)
         weekData = week
         currentWeek = weekData[req.params.weekId || currentWeek]
         applyData(res, showData, personData, weekData, currentWeek)
       })
-    )
+    })
+  })
 }
 
 exports.create_a_show = function(req, res) {
