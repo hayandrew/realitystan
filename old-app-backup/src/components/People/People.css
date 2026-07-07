@@ -1,0 +1,129 @@
+/*
+ *  Houseguest Item Styles
+ *
+ */
+.people {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.houseguest-outer {
+  cursor: auto;
+}
+.board-people .houseguest-outer {
+  margin: var(--voters-margin);
+}
+.hoh .Select,
+.nominees .Select {
+  margin: var(--houseguest-hoh-select-margin);
+}
+.hoh .houseguest,
+.evictees .houseguest {
+  display: block;
+}
+.hoh .houseguest-image {
+  height: var(--hoh-image-height);
+  width: var(--hoh-image-width);
+}
+.nominees .houseguest-image {
+  height: var(--nominee-image-height);
+  width: var(--nominee-image-width);
+}
+.houseguest-voters .houseguest-image {
+  height: var(--voters-image-height);
+  width: var(--voters-image-width);
+}
+.houseguest {
+  vertical-align: top;
+  padding: var(--houseguest-padding);
+  margin: var(--houseguest-margin);
+  text-align: center;
+  border: var(--houseguest-border);
+  border-radius: var(--houseguest-border-radius);
+  -webkit-transition: all 300ms linear;
+  -moz-transition: all 300ms linear;
+  -o-transition: all 300ms linear;
+  transition: all 300ms linear;
+}
+.houseguest-voters {
+  padding: var(--voters-padding);
+}
+.houseguest.disabled {
+  display: none;
+}
+.houseguest-image {
+  height: var(--houseguest-image-height);
+  width: var(--houseguest-image-width);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  display: flex;
+  align-items: flex-end;
+}
+.houseguest img {
+  height: var(--houseguest-img-height);
+}
+.houseguest.is_evicted {
+  filter: var(--houseguest-is_evicted-filter);
+  opacity: var(--houseguest-is_evicted-opacity);
+  background: var(--houseguest-is_evicted-bg);
+  position: relative;
+}
+.houseguest-details {
+  position: relative;
+}
+.houseguest.is_evicted .houseguest-details::before {
+  content: "";
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDEwMDAgMTAwMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAwMCAxMDAwIiB4bWw6c3BhY2U9InByZXNlcnZlIj48bWV0YWRhdGE+IFN2ZyBWZWN0b3IgSWNvbnMgOiBodHRwOi8vd3d3Lm9ubGluZXdlYmZvbnRzLmNvbS9pY29uIDwvbWV0YWRhdGE+PGc+PHBhdGggZD0iTTk0NS43LDk4OS40TDEwLDUzLjhMNTQuMyw5LjRMOTkwLDk0NS4xTDk0NS43LDk4OS40eiIvPjxwYXRoIGQ9Ik0xMCw5NDYuMkw5NDUuNywxMC42TDk5MCw1NC45TDU0LjMsOTkwLjZMMTAsOTQ2LjJMMTAsOTQ2LjJ6Ii8+PC9nPjwvc3ZnPg==);
+  background-size: cover;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background-position: 50%;
+  z-index: 1;
+}
+.detail-hover {
+  padding: var(--voter-name-padding);
+  font: var(--voter-name-font);
+  color: var(--voter-name-color);
+}
+
+/*
+ *  Houseguest Status Styles
+ *
+ */
+.nominees-inner {
+  display: flex;
+}
+.houseguest-evicted--label {
+  display: none;
+}
+.houseguest-evicted .houseguest-evicted--label {
+  display: block;
+}
+.houseguest-nominee {
+  -webkit-transition: all 300ms linear;
+  -moz-transition: all 300ms linear;
+  -o-transition: all 300ms linear;
+  transition: all 300ms linear;
+}
+.houseguest-nominee.is_nominee_evicted {
+  border-color: var(--houseguest-nominee-is_evicted-border);
+}
+.houseguest {
+  background: var(--houseguest-bg);
+}
+.houseguest--input-active {
+  background: var(--houseguest-bg-active);
+}
+.houseguest-voters .Select {
+  margin: var(--voters-select-margin);
+  font-size: var(--voters-select-font-size);
+  text-align: left;
+}

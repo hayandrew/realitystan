@@ -1,0 +1,9 @@
+.header {
+  margin: var(--header-margin);
+  border-bottom: var(--header-border-bottom);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--header-padding);
+  background: var(--header-bg);
+}

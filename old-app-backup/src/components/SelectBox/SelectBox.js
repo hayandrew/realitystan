@@ -1,6 +1,6 @@
-"use client"
 import React from "react"
 import Select from "react-select"
+import "./SelectBox.css"
 
 const SelectBox = props => {
   const {
@@ -14,7 +14,7 @@ const SelectBox = props => {
 
   /* If person is evicted, don't render a select */
   if (type === "evicted") {
-    return null
+    return false
   }
 
   /**
@@ -26,7 +26,6 @@ const SelectBox = props => {
       const newGroup = voters.filter(voter => !voter.is_evicted)
       return [thisPerson, ...newGroup]
     }
-    return []
   }
 
   /**
@@ -67,15 +66,12 @@ const SelectBox = props => {
     return type === "voters" ? thisPerson.vote : thisPerson.id
   }
 
-  const options = getOptions()
-  const selectedOption = options.find(option => option.value === getDefaultValue()) || null
-
   return (
     <Select
-      isDisabled={props.disabled}
-      value={selectedOption}
-      options={options}
-      isClearable={false}
+      disabled={props.disabled}
+      value={getDefaultValue()}
+      options={getOptions()}
+      clearable={false}
       onChange={onChange.bind(this, optionKey)}
     />
   )

@@ -1,7 +1,9 @@
-"use client"
 import React from "react"
-import Person from "../Person"
-import SelectBox from "../SelectBox"
+import Person from "@bbstan/person"
+import SelectBox from "@bbstan/selectbox"
+import "./People.css"
+
+const get = require("lodash/get")
 
 const People = props => {
   const {
@@ -21,7 +23,7 @@ const People = props => {
    * @returns {void}
    */
   function renderPerson(person, key) {
-    const is_evicted = person?.is_evicted ?? false
+    const is_evicted = get(person, "is_evicted", false)
     return (
       <Person
         type={type}

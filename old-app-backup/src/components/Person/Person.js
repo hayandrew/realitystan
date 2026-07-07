@@ -1,6 +1,8 @@
-"use client"
 import React, { Fragment } from "react"
 import classnames from "classnames"
+import "./Person.css"
+
+const get = require("lodash/get")
 
 const Person = props => {
   const { children, firstName, person, type, toggleEviction } = props
@@ -61,7 +63,7 @@ const Person = props => {
   }
 
   function renderEvictionToggle() {
-    const is_evicted = person?.is_evicted ?? false
+    const is_evicted = get(person, "is_evicted", false)
     return (
       <Fragment>
         <div className="checkbox">
@@ -91,7 +93,7 @@ const Person = props => {
           <div
             className="houseguest-image"
             style={{
-              backgroundImage: `url(/images/cast/${person.image})`
+              backgroundImage: `url(images/cast/${person.image}`
             }}
           >
             <div className="houseguest-stats">{getStatusIcons(person)}</div>

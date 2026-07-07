@@ -1,7 +1,7 @@
-"use client"
 import React from "react"
 import evictionMessages from "./data"
-import Person from "../Person"
+import Person from "@bbstan/person"
+import "./Overlay.css"
 
 const Overlay = props => {
   const { overlay, toggleOverlay, evictedPerson, people } = props
