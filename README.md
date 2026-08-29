@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RealityStan 🌌
 
-## Getting Started
+A modern, dynamic reality TV show dashboard and voting simulator bootstrapped with Next.js and Mongoose. Currently themed as the **Star Wars Big Brother** tracker, RealityStan allows fans and viewers to track, update, and simulate weekly voting logic, evictions, and Head of Household (HOH) rules in real time.
 
-First, run the development server:
+---
 
+## 🚀 Features
+
+- **Dynamic Leaderboard**: Track the current **Head of Household (HOH)** and **Nominees** dynamically.
+- **Interactive Voting Simulator**: Cast/change votes for active houseguests, with real-time recalculations of votes.
+- **Auto Eviction Detection**: Calculates when a nominee has reached the majority threshold of votes and triggers a dramatic eviction modal.
+- **MongoDB + Mongoose Integration**: Seamless connection to a MongoDB database to store shows, participants, and weekly statuses.
+- **Static Fallback Data**: Fully functional offline or without database configuration using integrated mock data fallbacks.
+- **Modern Responsive Design**: Pure CSS custom properties (variables), custom fonts, and fully responsive layouts that look stunning on any device.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
+- **Library**: [React 19](https://react.dev/)
+- **Database**: [MongoDB](https://www.mongodb.com/) via [Mongoose](https://mongoosejs.com/)
+- **Styling**: Vanilla CSS with custom property themes
+- **Dropdowns**: [React Select](https://react-select.com/)
+
+---
+
+## 📋 Prerequisites
+
+Make sure you have the following installed on your machine:
+- **Node.js** (v18.x or higher recommended)
+- **MongoDB** (running locally, or a remote MongoDB Atlas URI)
+
+---
+
+## ⚙️ Setup and Installation
+
+### 1. Clone the repository and install dependencies
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/hayandrew/realitystan.git
+cd realitystan
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configure Environment Variables
+Create a `.env.local` file in the root directory. You can copy the template provided:
+```bash
+cp .env.local.example .env.local
+```
+Open `.env.local` and specify your MongoDB URI:
+```env
+MONGODB_URI=mongodb://localhost:27017/bbstan
+```
+*Note: If no `MONGODB_URI` is provided, the application will automatically fall back to static mockup data, so you can still run and explore the application without a database.*
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 3. Seed the Database
+To populate your MongoDB database with the default show data (Star Wars characters, default Nominees, and Head of Households), run:
+```bash
+npm run db:seed
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 💻 Running the Application
 
-To learn more about Next.js, take a look at the following resources:
+Start the Next.js development server:
+```bash
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open [http://localhost:3000](http://localhost:3000) in your browser to interact with the dashboard.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🗂️ Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+realitystan/
+├── scripts/
+│   └── seed.js             # Database seed script for MongoDB
+├── src/
+│   ├── app/
+│   │   ├── api/            # Serverless API routes
+│   │   ├── App.css         # Main application styles
+│   │   ├── theme.css       # CSS custom properties and color palettes
+│   │   └── page.js         # Core application shell & state machine
+│   ├── components/         # Reusable React components (Header, Footer, Overlay, People, etc.)
+│   ├── data/
+│   │   └── staticData.js   # Static mock data fallback
+│   └── lib/
+│       └── mongodb.js      # MongoDB connector and Mongoose schemas
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🧪 Development & Deployment
+
+- **Linting**: Run `npm run lint` to check for style/code issues.
+- **Production Build**: Run `npm run build` to build the optimized production bundles.
+- **Deployment**: The repository is fully optimized for one-click deployment on [Vercel](https://vercel.com). Make sure to add `MONGODB_URI` to your project's Environment Variables in the Vercel dashboard.
+
