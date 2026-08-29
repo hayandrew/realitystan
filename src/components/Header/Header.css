@@ -7,3 +7,18 @@
   padding: var(--header-padding);
   background: var(--header-bg);
 }
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+}
+
+.header-logo {
+  height: 2.2em;
+  width: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.35em;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
