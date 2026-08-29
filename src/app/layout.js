@@ -8,6 +8,7 @@ import "../components/Overlay/Overlay.css";
 import "../components/People/People.css";
 import "../components/Person/Person.css";
 import "../components/SelectBox/SelectBox.css";
+import "../components/LoadingSpinner/LoadingSpinner.css";
 
 export const metadata = {
   title: "Big Brother Calculator",

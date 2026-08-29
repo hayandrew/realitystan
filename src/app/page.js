@@ -4,6 +4,7 @@ import Overlay from "@/components/Overlay"
 import Header from "@/components/Header"
 import People from "@/components/People"
 import Footer from "@/components/Footer"
+import LoadingSpinner from "@/components/LoadingSpinner"
 
 export default function Home() {
   const showApi = "/api/show"
@@ -15,10 +16,13 @@ export default function Home() {
   const [voters, setVoters] = useState([])
   const [overlay, setOverlay] = useState(false)
   const [evictedPerson, setEvictedPerson] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   // Use refs to keep track of current state inside event listener callbacks
   const overlayRef = useRef(overlay)
-  overlayRef.current = overlay
+  useEffect(() => {
+    overlayRef.current = overlay
+  }, [overlay])
 
   useEffect(() => {
     /* Get data from API */
@@ -29,9 +33,11 @@ export default function Home() {
         setNominees(data.nominees || [])
         setHoh(data.hoh || [])
         setVoters(data.voters || [])
+        setLoading(false)
       })
       .catch(error => {
         console.error("Error fetching show data:", error)
+        setLoading(false)
       })
 
     /* Add event listeners */
@@ -196,43 +202,47 @@ export default function Home() {
       />
 
       <Header />
-      <div className="board">
-        <div className="board-leaderboard">
-          {hoh.length > 0 && (
-            <People
-              title={show.leaderTitle}
-              type="hoh"
-              people={hoh}
-              nominees={nominees}
-              onChange={updateGroup}
-              voters={voters}
-            />
-          )}
-          {nominees.length > 0 && (
-            <People
-              title={show.nomineesTitle}
-              type="nominees"
-              people={nominees}
-              hoh={hoh}
-              onChange={updateGroup}
-              voters={voters}
-            />
-          )}
-        </div>
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <div className="board">
+          <div className="board-leaderboard">
+            {hoh.length > 0 && (
+              <People
+                title={show.leaderTitle}
+                type="hoh"
+                people={hoh}
+                nominees={nominees}
+                onChange={updateGroup}
+                voters={voters}
+              />
+            )}
+            {nominees.length > 0 && (
+              <People
+                title={show.nomineesTitle}
+                type="nominees"
+                people={nominees}
+                hoh={hoh}
+                onChange={updateGroup}
+                voters={voters}
+              />
+            )}
+          </div>
 
-        <div className="board-people">
-          {voters.length > 0 && (
-            <People
-              title={show.peopleTitle}
-              type="voters"
-              people={voters}
-              onChange={updateVote}
-              nominees={nominees}
-              toggleEviction={toggleEviction}
-            />
-          )}
+          <div className="board-people">
+            {voters.length > 0 && (
+              <People
+                title={show.peopleTitle}
+                type="voters"
+                people={voters}
+                onChange={updateVote}
+                nominees={nominees}
+                toggleEviction={toggleEviction}
+              />
+            )}
+          </div>
         </div>
-      </div>
+      )}
       <Footer />
     </>
   )
