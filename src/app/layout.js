@@ -11,16 +11,15 @@ import "../components/SelectBox/SelectBox.css";
 import "../components/LoadingSpinner/LoadingSpinner.css";
 
 export const metadata = {
-  title: "Big Brother Calculator",
-  description: "A simulator and calculator to track Head of Household, nominees, votes, and evictions on Big Brother.",
+  title: "RealityStan",
+  description:
+    "A simulator and calculator to track Head of Household, nominees, votes, and evictions on Big Brother.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body suppressHydrationWarning={true}>
-        {children}
-      </body>
+    <html lang="en" suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true}>{children}</body>
     </html>
   );
 }
