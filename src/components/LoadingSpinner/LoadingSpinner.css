@@ -3,10 +3,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 50vh;
-  padding: 3rem 1rem;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  padding: 2rem 1rem;
   color: #fff;
   text-align: center;
+  background: var(--main-bg-color, #000023);
 }
 
 .loading-spinner {
